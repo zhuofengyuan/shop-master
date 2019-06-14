@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/wechat")
 public class AuthRestController {
 
-    @GetMapping("/conn")
+    @GetMapping
     public String conn(String echostr){
         System.out.println(echostr);
         return echostr;
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "hello world";
     }
 }
