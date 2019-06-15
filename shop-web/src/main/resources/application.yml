@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: shop-shop
+
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      username: root
+      password: root
+      initial-size: 5
+      max-active: 20
+      min-idle: 10
+      max-wait: 10
+
+    # redis 配置
+    redis:
+      #数据库索引
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      password: 123
+  profiles:
+    include: fengtoos
+mybatis:
+  mapper-locations: classpath*:mappers/*Mapper.xml
+  type-aliases-package: com.zhuofengyuan.wechat.entity
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+zk:
+  host: 127.0.0.1:2181
+

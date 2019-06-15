@@ -8,6 +8,7 @@ import org.apache.curator.retry.RetryNTimes;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 @Slf4j
+@ConditionalOnExpression("${keygen.snow.enabled:false}")
 public class WorkerIDSenquence {
 
     @Value("${zk.host}")

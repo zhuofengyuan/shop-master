@@ -3,6 +3,7 @@ package com.zhuofengyuan.wechat.shop.util.keygen;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,8 @@ import java.util.Date;
  */
 @Slf4j
 @Service("snowFlakeKeyGenerator")
-public class SnowFlakeKeyGenerator implements KeyGenerator{
+@ConditionalOnBean(WorkerIDSenquence.class)
+public class SnowFlakeKeyGenerator implements KeyGenerator<Number>{
 
     @Autowired
     private WorkerIDSenquence workerIDSenquence;

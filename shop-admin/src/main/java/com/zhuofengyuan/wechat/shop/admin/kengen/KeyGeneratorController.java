@@ -23,7 +23,7 @@ public class KeyGeneratorController {
 
     @RequestMapping("/keygen")
     public String generateKey() {
-        return String.valueOf(keyGenerator.generateKey().longValue());
+        return String.valueOf(keyGenerator.generateKey());
     }
 
 }

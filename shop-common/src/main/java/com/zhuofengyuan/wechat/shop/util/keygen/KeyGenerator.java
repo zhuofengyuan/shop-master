@@ -1,7 +1,7 @@
 package com.zhuofengyuan.wechat.shop.util.keygen;
 
-public interface KeyGenerator {
+public interface KeyGenerator<T> {
 
-    Number generateKey();
+    T generateKey();
 
 }
