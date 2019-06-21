@@ -3,6 +3,8 @@ package com.zhuofengyuan.wechat.shop.service;
 import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IProductCategoryService extends IService<ProductCategory> {
 
+    List<ProductCategory> findTree();
 }

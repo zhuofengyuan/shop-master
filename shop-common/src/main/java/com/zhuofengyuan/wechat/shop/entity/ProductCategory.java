@@ -10,4 +10,5 @@ public class ProductCategory {
     private String id;
     private String name;
     private Integer status;
+    private String parent;
 }

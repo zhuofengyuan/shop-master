@@ -4,6 +4,8 @@ import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,4 +17,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
 
+    /**
+     * 查找树结构
+     * @return
+     */
+    List<ProductCategory> selectTree();
 }
