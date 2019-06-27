@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.zhuofengyuan.wechat</groupId>
     <artifactId>shop-master</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -22,7 +22,7 @@
     <dependency>
       <groupId>com.zhuofengyuan.wechat</groupId>
       <artifactId>shop-common</artifactId>
-      <version>0.0.1</version>
+      <version>1.0.0</version>
     </dependency>
 
     <!-- mvc -->

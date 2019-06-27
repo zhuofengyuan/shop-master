@@ -4,7 +4,6 @@ import com.zhuofengyuan.wechat.shop.util.keygen.KeyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author 【swg】.
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @DESC
  * @CONTACT 317758022@qq.com
  */
-@RestController
-@RequestMapping
 public class KeyGeneratorController {
 
 

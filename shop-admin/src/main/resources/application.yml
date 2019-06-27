@@ -3,7 +3,8 @@ server:
 spring:
   application:
     name: shop-admin
-
+  profiles:
+    include:
   datasource:
     druid:
       url: jdbc:mysql://localhost:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
@@ -34,3 +35,4 @@ pagehelper:
 
 zk:
   host: 127.0.0.1:2181
+
