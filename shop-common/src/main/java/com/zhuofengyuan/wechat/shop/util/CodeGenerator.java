@@ -61,7 +61,7 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-//        pc.setModuleName(scanner("模块名"));
+//        pc.setModuleName(scanner("模块名"))
         pc.setParent("com.zhuofengyuan.wechat.shop");
         mpg.setPackageInfo(pc);
 

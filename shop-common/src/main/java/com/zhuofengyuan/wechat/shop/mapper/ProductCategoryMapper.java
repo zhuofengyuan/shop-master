@@ -1,7 +1,7 @@
 package com.zhuofengyuan.wechat.shop.mapper;
 
-import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

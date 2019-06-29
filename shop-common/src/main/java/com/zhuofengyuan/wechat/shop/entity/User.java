@@ -10,4 +10,7 @@ public class User {
     private String openId;
     private String name;
     private String logo;
+    private String username;
+    private String screenName;
+    private String password;
 }
