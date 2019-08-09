@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.admin.auth;
+package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;

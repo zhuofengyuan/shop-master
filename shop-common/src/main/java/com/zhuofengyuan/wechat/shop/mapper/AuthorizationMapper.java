@@ -15,7 +15,7 @@ import java.util.List;
  * @author fengtoos
  * @since 2019-06-29
  */
-@Mapper
+//@Mapper
 public interface AuthorizationMapper extends BaseMapper<Authorization> {
 
     List<Authorization> selectByUserId(@Param("userId") String userId);

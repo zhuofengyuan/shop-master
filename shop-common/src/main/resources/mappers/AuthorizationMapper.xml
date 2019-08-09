@@ -17,7 +17,7 @@
 
         <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
             SELECT DISTINCT
-                a.id, a.code. a.name
+                a.id, a.code, a.name
             FROM authorization a
             INNER JOIN role_authorization ra ON ra.authorization_id = a.id
             WHERE EXISTS (

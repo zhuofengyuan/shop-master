@@ -6,7 +6,7 @@
         <resultMap id="BaseResultMap" type="com.zhuofengyuan.wechat.shop.entity.Product">
                 <result column="id" property="id" />
                     <result column="name" property="name" />
-                    <result column="desc" property="desc" />
+                    <result column="description" property="description" />
                     <result column="price" property="price" />
                     <result column="cateid" property="cateid" />
         </resultMap>
@@ -14,7 +14,7 @@
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
                 id,
-            name, desc, price, cateid
+            name, description, price, cateid
         </sql>
 
 </mapper>

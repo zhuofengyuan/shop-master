@@ -7,7 +7,7 @@ import lombok.Data;
 @TableName("user")
 public class User {
     private String id;
-    private String openId;
+    private String openid;
     private String name;
     private String logo;
     private String username;

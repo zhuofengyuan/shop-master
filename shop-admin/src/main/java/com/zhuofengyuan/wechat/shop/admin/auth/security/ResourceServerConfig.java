@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.admin.auth;
+package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 /**
  * OAuth 资源服务器配置
- * @author wunaozai
+ * @author fengtoos
  * @date 2018-05-29
  */
 @Configuration
@@ -36,7 +36,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //            .authorizeRequests()
 //            .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
                 .authorizeRequests()
-                .antMatchers("/order/**").hasAuthority("admin_role");//配置访问控制，必须具有admin_role权限才可以访问资源
+                .antMatchers("/order/**").hasAuthority("admin_role")
+                .antMatchers("/admin/product/**").permitAll();//配置访问控制，必须具有admin_role权限才可以访问资源
 //            .antMatchers("/order/**").hasAnyRole("admin");
     }
 

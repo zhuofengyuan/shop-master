@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.admin.auth;
+package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
 import com.zhuofengyuan.wechat.shop.entity.Authorization;
 import com.zhuofengyuan.wechat.shop.entity.User;
@@ -6,17 +6,19 @@ import com.zhuofengyuan.wechat.shop.service.IAuthorizationService;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Order(1)
+@Component
 public class FengtoosUserDetailsService implements UserDetailsService {
 
     @Autowired

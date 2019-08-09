@@ -1,5 +1,6 @@
-package com.zhuofengyuan.wechat.shop.admin.auth;
+package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,8 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -26,21 +26,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true) //启用方法级的权限认证
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //通过自定义userDetailsService 来实现查询数据库，手机，二维码等多种验证方式
+    @Autowired
+    FengtoosUserDetailsService fengtoosUserDetailsService;
+    @Autowired
+    LoginAuthenticationProcider loginAuthenticationProcider;
+
     @Bean
-    @Override
-    protected UserDetailsService userDetailsService(){
-        //采用一个自定义的实现UserDetailsService接口的类
-        return new FengtoosUserDetailsService();
-        /*
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String finalPassword = "{bcrypt}"+bCryptPasswordEncoder.encode("123456");
-        manager.createUser(User.withUsername("user_1").password(finalPassword).authorities("USER").build());
-        finalPassword = "{noop}123456";
-        manager.createUser(User.withUsername("user_2").password(finalPassword).authorities("USER").build());
-        return manager;
-        */
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    LoginAuthenticationProcider loginAuthenticationProcider(){
+        var procider = new LoginAuthenticationProcider();
+        procider.setUserDetailsService(this.fengtoosUserDetailsService);
+        procider.setPasswordEncoder(passwordEncoder());
+        procider.setHideUserNotFoundExceptions(false);
+        return procider;
     }
 
     @Override
@@ -66,7 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.authenticationProvider(loginAuthenticationProcider());
+        auth.userDetailsService(this.fengtoosUserDetailsService).passwordEncoder(this.passwordEncoder());
     }
 
     /**
@@ -79,8 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public static void main(String[] args) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("123456"));
     }
 }

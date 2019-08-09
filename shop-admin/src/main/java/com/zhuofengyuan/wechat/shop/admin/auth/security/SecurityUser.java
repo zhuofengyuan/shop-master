@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.admin.auth;
+package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
