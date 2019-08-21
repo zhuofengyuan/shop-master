@@ -1,10 +1,12 @@
 package com.zhuofengyuan.wechat.shop.admin.auth;
 
-import com.zhuofengyuan.wechat.shop.admin.settings.WechatSettings;
+import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/wechat")
@@ -24,8 +26,8 @@ public class AuthRestController {
         return "hello world";
     }
 
-    @GetMapping("/prop")
-    public WechatSettings getWechatSettings(){
-        return this.wechatSettings;
+    @GetMapping("/principal")
+    public Principal getPrincipal(Principal user) {
+        return user;
     }
 }

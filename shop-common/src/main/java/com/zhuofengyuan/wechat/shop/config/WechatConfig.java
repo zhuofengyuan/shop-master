@@ -1,6 +1,6 @@
-package com.zhuofengyuan.wechat.shop.admin.config;
+package com.zhuofengyuan.wechat.shop.config;
 
-import com.zhuofengyuan.wechat.shop.admin.settings.WechatSettings;
+import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

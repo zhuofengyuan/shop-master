@@ -1,0 +1,8 @@
+wechat:
+  appid: wxce445d2e4aea2c00
+  appsecret: d924576eb694612ac2831e3bfadb57cf
+  access-token-key: wx.user.accesstoken
+  refresh-token-key: wx.user.refreshtoken
+
+
+
