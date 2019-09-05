@@ -1,5 +1,9 @@
 server:
   port: 8080
+
+fengtoos:
+  ipaddress: 127.0.0.1
+
 spring:
   application:
     name: shop-admin
@@ -27,7 +31,7 @@ spring:
 mybatis-plus:
   mapperLocations: classpath*:mappers/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.zhuofengyuan.wechat.entity
+  typeAliasesPackage: com.zhuofengyuan.wechat.shop.entity
 
 pagehelper:
   helperDialect: mysql
@@ -38,4 +42,6 @@ pagehelper:
 zk:
   host: 127.0.0.1:2181
 
+file:
+  temppath: temp
 

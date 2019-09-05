@@ -87,7 +87,7 @@
     width:100%;
 }
 .login hr {
-    background: #fff url() 0 0 no-repeat;
+    background: #fff /*url()*/ 0 0 no-repeat;
 }
 .login hr.hr15 {
     height: 15px;
@@ -102,4 +102,36 @@
     margin: 0px;
     padding: 0px;
     width: 100%;
+}
+.tool .tit {
+    width: 100%;
+    height: 1px;
+    background-color: #d4d4d4;
+    position: relative;
+}
+.tool .tit span{
+    display: block;
+    background-color: #fff;
+    height: 20px;
+    line-height: 20px;
+    width: 100px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: -10px;
+}
+.tool .list a {
+    width: 46px;
+    height: 45px;
+    display: inline-block;
+    vertical-align: -16px;
+    background: url(../images/icon2.png) no-repeat;
+}
+.tool .list .wx{
+    background-position-y: -47px;
+}
+.tool .list{
+    text-align: center;
+    padding-top: 20px;
 }

@@ -73,7 +73,7 @@
 	 * @param  {Boolean} full  [全屏]
 	 * @return {[type]}        [description]
 	 */
-	Xadmin.prototype.open = function (title,url,w,h,full) {
+	Xadmin.prototype.open = function (title,url,w,h,end,full) {
 		if (title == null || title == '') {
 	        var title=false;
 	    };
@@ -100,6 +100,34 @@
 	       layer.full(index); 
 	    }
 	}
+
+	Xadmin.prototype.open_back = function(params) {
+	    var _params = {
+	        title: false,
+            url: '404.html',
+            w: $(window).width()*0.9,
+            h: $(window).height() - 50,
+            full: null,
+            back: function(){}
+        }
+
+        params = $.extend({}, _params, params);
+        var index = layer.open({
+            type: 2,
+            area: [params.w+'px', params.h +'px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: params.title,
+            content: params.url,
+            end: params.back()
+        });
+        if(params.full){
+            layer.full(index);
+        }
+    }
+
 	/**
 	 * [close 关闭弹出层]
 	 * @return {[type]} [description]

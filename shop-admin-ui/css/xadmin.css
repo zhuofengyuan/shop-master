@@ -531,4 +531,7 @@ table th, table td {
     font-size: 300px;
     color: #393D49;
 }
-
+.layui-upload-img {
+    width: 600px;
+    height: 280px;
+}

@@ -1,5 +1,6 @@
 package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
+import com.zhuofengyuan.wechat.shop.security.SecurityUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,32 +11,15 @@ import java.util.Collection;
 
 @Data
 @NoArgsConstructor
-public class SecurityUser implements Serializable, UserDetails {
+public class FengtoosSecurityUser extends SecurityUser implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 3945179659081211914L;
 
     private Collection<GrantedAuthority> authorities;
 
-    private String id;
-
-    private String nickName;
-
-    private String loginName;
-
-    private String loginPwd;
-
-    private String status;
-
-    private Long roleId;
-
-    private String roleName;
-
-    public SecurityUser(Collection<GrantedAuthority> authorities, String id, String nickName, String loginName, String loginPwd) {
+    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, String id, String nickName, String loginName, String loginPwd) {
+        super(id, nickName, loginName, loginPwd);
         this.authorities = authorities;
-        this.id = id;
-        this.nickName = nickName;
-        this.loginName = loginName;
-        this.loginPwd = loginPwd;
     }
 
     @Override

@@ -25,6 +25,12 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- reactive -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
         <!--springboot2.X默认使用lettuce连接池，需要引入commons-pool2-->
         <dependency>
             <groupId>org.apache.commons</groupId>
