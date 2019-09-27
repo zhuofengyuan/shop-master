@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface IAuthorizationService extends IService<Authorization> {
 
-    List<Authorization> selectByUserId(String id);
+    List<Authorization> selectByUserId(Long id);
 }

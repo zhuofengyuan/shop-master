@@ -31,7 +31,7 @@ public class File implements Serializable {
 
     private Integer type;
 
-    private String createUser;
+    private Long createUser;
 
     private Date createTime;
 }

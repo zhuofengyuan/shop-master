@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author fengtoos
@@ -68,12 +68,11 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
                 this.keygen.generateKey()));
 
         //判断父目录是否存在并创建
-        if(!path.getParent().isAbsolute()){
+        if (!path.getParent().isAbsolute()) {
             Files.createDirectories(path.getParent());
         }
 
         File entity = new File();
-        entity.setCreateTime(new Date());
         entity.setFilename(file.getName());
         entity.setPath(path.toUri().getPath());
         entity.setCreateUser(this.userInstance.getCurrentUser().getId());

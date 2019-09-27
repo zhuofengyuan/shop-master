@@ -8,6 +8,9 @@ public class WechatSettings {
     private String appid;
     private String appsecret;
 
+    /** 小程序用户初始密码 */
+    private String initialPwd;
+
     /** 微信官网API地址 */
     private String login;
     private String token;

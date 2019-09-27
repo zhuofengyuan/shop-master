@@ -15,13 +15,13 @@
             code, name
         </sql>
 
-        <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <select id="selectByUserId" parameterType="long" resultMap="BaseResultMap">
             SELECT DISTINCT
                 a.id, a.code, a.name
             FROM authorization a
             INNER JOIN role_authorization ra ON ra.authorization_id = a.id
             WHERE EXISTS (
-            SELECT 1 FROM user_role u WHERE u.user_id = #{userId, jdbcType=BIGINT} AND u.role_id = ra.role_id
+            SELECT 1 FROM user_role u WHERE u.user_id = #{userId, jdbcType=VARCHAR} AND u.role_id = ra.role_id
             )
         </select>
 </mapper>

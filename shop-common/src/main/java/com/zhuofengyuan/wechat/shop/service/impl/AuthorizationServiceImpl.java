@@ -26,8 +26,8 @@ public class AuthorizationServiceImpl extends ServiceImpl<AuthorizationMapper, A
     AuthorizationMapper authorizationMapper;
 
     @Override
-    public List<Authorization> selectByUserId(String id) {
-        if(StringUtils.isEmpty(id)){
+    public List<Authorization> selectByUserId(Long id) {
+        if(id == null){
             return Collections.emptyList();
         }
         return this.authorizationMapper.selectByUserId(id);

@@ -4,19 +4,16 @@ package com.zhuofengyuan.wechat.shop.admin.file;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ZeroCopyHttpOutputMessage;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
-import javax.websocket.server.PathParam;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * <p>
@@ -42,7 +39,7 @@ public class FileController {
     @PostMapping
     public Mono<Object> upload(@RequestParam("file") MultipartFile file) throws IOException {
         var entity = this.fileService.upload(file);
-        return Mono.just(RestResponseBo.ok(entity.getId()));
+        return Mono.just(RestResponseBo.ok(entity.getId(), 200));
     }
 
     /**
@@ -52,15 +49,19 @@ public class FileController {
      * @return
      * @throws IOException
      */
-    @GetMapping("/{id}")
-    public Mono<Void> download(@PathParam("id") String id, ServerHttpResponse response) throws IOException {
+    @GetMapping(value = "/{id}", produces = {MediaType.IMAGE_JPEG_VALUE})
+    public void download(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
         var entity = this.fileService.getById(id);
-        ZeroCopyHttpOutputMessage zeroCopyResponse = (ZeroCopyHttpOutputMessage) response;
-        response.getHeaders().set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + entity.getFilename());
-        response.getHeaders().setContentType(MediaType.IMAGE_PNG);
+        var file = new File(Paths.get(entity.getPath()).toUri());
+        var fis = new FileInputStream(file);
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        response.setCharacterEncoding("utf-8");
 
-        Resource resource = new ClassPathResource(entity.getPath());
-        File file = resource.getFile();
-        return zeroCopyResponse.writeWith(file, 0, file.length());
+        int i = 0;
+        byte[] buff = new byte[(int)file.length()];
+        fis.read(buff);
+        var os = response.getOutputStream();
+        os.write(buff);
+        os.flush();
     }
 }

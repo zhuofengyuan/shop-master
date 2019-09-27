@@ -3,6 +3,8 @@ package com.zhuofengyuan.wechat.shop.service;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.io.Serializable;
+
 /**
  * <p>
  *  服务类
@@ -19,4 +21,6 @@ public interface IUserService extends IService<User> {
      * @return
      */
     User findByUsername(String username);
+
+    Serializable findWxUser(User user);
 }

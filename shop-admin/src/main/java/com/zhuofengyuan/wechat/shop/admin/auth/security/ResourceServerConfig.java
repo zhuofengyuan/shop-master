@@ -37,7 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //            .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
                 .authorizeRequests()
                 .antMatchers("/order/**").hasAuthority("admin_role")
-                .antMatchers("/admin/product/**", "/wx/api/**").permitAll();
+                .antMatchers("/admin/product/**", "/wx/api/**", "/admin/file/**", "/user/wx/**").permitAll();
 //            .antMatchers("/order/**").hasAnyRole("admin");
     }
 

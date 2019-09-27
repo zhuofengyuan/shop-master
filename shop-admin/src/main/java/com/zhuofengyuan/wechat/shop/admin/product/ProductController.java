@@ -2,7 +2,6 @@ package com.zhuofengyuan.wechat.shop.admin.product;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.Product;
-import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class ProductController {
     public RestResponseBo list(@RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
                                @RequestParam(name = "limit", defaultValue = "10") Integer pageSize){
         Page<Product> page = new Page<>(pageNumber, pageSize);
-        if(page != null){
-            throw new FengtoosException(500, "test");
-        }
         return RestResponseBo.ok(this.productService.page(page));
     }
 

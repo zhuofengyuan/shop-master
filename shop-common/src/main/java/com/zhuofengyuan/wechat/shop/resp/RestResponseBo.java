@@ -25,7 +25,7 @@ public class RestResponseBo<T> {
     /**
      * 状态码
      */
-    private int code = -1;
+    private int code = 200  ;
 
     /**
      * 服务器响应时间

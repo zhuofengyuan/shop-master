@@ -36,11 +36,11 @@ public class FengtoosUserDetailsService implements UserDetailsService {
     }
 
     private FengtoosSecurityUser createSecurityUser(User entity){
-        String id = entity.getId();
+        Long id = entity.getId();
         List<Authorization> auths = this.authorizationService.selectByUserId(id);
 
         List<GrantedAuthority> authorizations = auths.stream().filter(a -> StringUtils.isNotEmpty(a.getCode()))
                 .map(a -> new SimpleGrantedAuthority(a.getCode())).collect(Collectors.toList());
-        return new FengtoosSecurityUser(authorizations, entity.getId(), entity.getScreenName(), entity.getUsername(), entity.getPassword());
+        return new FengtoosSecurityUser(authorizations, entity.getId(), entity.getScreenName(), entity.getUsername(), entity.getPassword(), entity.getLogo());
     }
 }

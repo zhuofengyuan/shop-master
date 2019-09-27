@@ -18,5 +18,5 @@ import java.util.List;
 //@Mapper
 public interface AuthorizationMapper extends BaseMapper<Authorization> {
 
-    List<Authorization> selectByUserId(@Param("userId") String userId);
+    List<Authorization> selectByUserId(@Param("userId") Long userId);
 }

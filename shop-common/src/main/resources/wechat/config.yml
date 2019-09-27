@@ -3,6 +3,7 @@ wechat:
   appsecret: d924576eb694612ac2831e3bfadb57cf
   access-token-key: wx.user.accesstoken
   refresh-token-key: wx.user.refreshtoken
+  initial-pwd: 123456
 
 
 

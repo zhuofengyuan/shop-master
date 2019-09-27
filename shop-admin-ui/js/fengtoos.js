@@ -236,9 +236,6 @@ window.fengtoos = {
                 }
                 return true;
             },
-            // function(xhr){
-            //    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
-            // },
             success: function (data) {
                 if (typeof (params.success) == "function") {
                     params.success(data);

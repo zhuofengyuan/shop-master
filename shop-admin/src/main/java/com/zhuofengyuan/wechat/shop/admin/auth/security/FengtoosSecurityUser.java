@@ -17,8 +17,8 @@ public class FengtoosSecurityUser extends SecurityUser implements Serializable, 
 
     private Collection<GrantedAuthority> authorities;
 
-    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, String id, String nickName, String loginName, String loginPwd) {
-        super(id, nickName, loginName, loginPwd);
+    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, Long id, String nickName, String loginName, String loginPwd, String logo) {
+        super(id, nickName, loginName, loginPwd, logo);
         this.authorities = authorities;
     }
 

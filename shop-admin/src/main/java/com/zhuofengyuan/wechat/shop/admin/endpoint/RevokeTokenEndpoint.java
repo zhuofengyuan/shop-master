@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 登出操作
  */
@@ -22,7 +20,7 @@ public class RevokeTokenEndpoint {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/oauth/token")
     @ResponseBody
-    public boolean revokeToken(String access_token, HttpServletRequest request) {
+    public boolean revokeToken(String access_token) {
         if (consumerTokenServices.revokeToken(access_token)) {
             return true;
         } else {

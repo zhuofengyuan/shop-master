@@ -1,6 +1,5 @@
 var base_path = 'http://localhost:8080/';
 var oauth_server = base_path;
-var cmc_server = base_path
 var redirect_uri = base_path + 'view/index';
 var client_id = 'client_2';
 var client_secret = '123456';
@@ -13,22 +12,6 @@ if (getAuth() == null && !window.location.href.endsWith('/login.html')) {
 function ajaxSetup() {
     $.ajaxSetup({
         timeout: 30000,
-        beforeSend: function (xhr) {
-            console.log(this.url);
-            if (this.url.endsWith('/oauth/token')) {
-                return true;
-            }
-            if (getAuth() == null) {
-                window.location.href = 'login.html'
-            }
-            var auth = getAuth();
-            if (auth != null) {
-                xhr.setRequestHeader("Authorization", getAuth().token_type + ' ' + getAuth().access_token);
-            } else {
-                return false;
-            }
-            return true;
-        },
         complete: function (xhr, ts) {
             if (xhr.status == 401 && xhr.responseJSON.error == 'invalid_token') {
                 refreshToken();
@@ -132,7 +115,7 @@ function refreshToken() {
     });
 
     fengtoos.server({
-        url: oauth_server + 'user/principal',
+        url: oauth_server + 'wechat/principal',
         type: 'get',
         success: function (result) {
             if(result){
@@ -160,5 +143,5 @@ function checkToken() {
 
 
 $(function () {
-    //ajaxSetup();
+    ajaxSetup();
 });
