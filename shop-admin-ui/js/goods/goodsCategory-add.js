@@ -4,6 +4,12 @@ layui.use(['form', 'layer'],
             layer = layui.layer,
             $ = layui.jquery;
 
+        //初始化表单
+        form.val("cateForm", $.extend({}, window.parent.currentOpen, {}));
+        if(form.val("cateForm").parentName){
+            $('#parentName').html(form.val("cateForm").parentName);
+        }
+
         //自定义验证规则
         form.verify({
             name: function (value) {
@@ -21,9 +27,14 @@ layui.use(['form', 'layer'],
         });
 
         //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data.field);
-
+        form.on('submit(add)', function (params) {
+            data = params.field
+            if(data.status){
+                data.status = 1;
+            } else {
+                data.status = 0;
+            }
+            console.log(data)
             fengtoos.server({
                 url: base_path + 'admin/product/cate/add',
                 type: 'post',
@@ -43,8 +54,4 @@ layui.use(['form', 'layer'],
 
             return false;
         });
-
-        console.log(window.parent.currentOpen)
-        //初始化表单
-        form.val("cateForm", window.parent.currentOpen);
 });

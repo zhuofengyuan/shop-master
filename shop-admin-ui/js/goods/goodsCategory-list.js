@@ -115,7 +115,7 @@ var makeLine = function(params) {
         '<td class="td-manage">' +
         '   <button class="layui-btn layui-btn layui-btn-xs" onclick="x_admin_show(\'编辑\',\'admin-edit.html\')">' +
         '       <i class="layui-icon">&#xe642;</i>编辑</button>' +
-        '   <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="openEdit(null,\'' + params.name + '\',\'' + params.id + '\')">' +
+        '   <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="openEdit(null,\'' + params.id + '\',\'' + params.name + '\')">' +
         '       <i class="layui-icon">&#xe642;</i>添加子栏目</button>' +
         '   <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,\'要删除的id\')"' +
         ' href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>' +

@@ -10,8 +10,11 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/auth.js"></script>
+    <script type="text/javascript" src="./js/fengtoos.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -32,9 +35,9 @@
             <div class="layui-form-item">
                 <label for="parentName" class="layui-form-label">
                     <span class="x-red">*</span>上级分类</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="parentName" name="parentName" required="" lay-verify="required" autocomplete="off"
-                           class="layui-input">
+                <div class="layui-input-inline" style="width: auto;">
+                    <div class="layui-bg-cyan" id="parentName" style="margin-top: 10px;border-radius: 5%;width: 120%;text-align: center;"></div>
+                    <input type="hidden" name="parentName">
                     <input type="hidden" name="parentId">
                 </div>
             </div>
@@ -48,7 +51,7 @@
             <div class="layui-form-item">
                 <label for="sortOrder" class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" checked="" name="status" lay-skin="switch" lay-filter="switchTest" lay-text="开启|停用">
+                    <input type="checkbox" checked="" name="status" lay-skin="switch" lay-filter="switchTest" lay-text="开启|停用" value="true">
                 </div>
             </div>
                 <div class="layui-form-item">
