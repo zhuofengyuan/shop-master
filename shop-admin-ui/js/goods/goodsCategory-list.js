@@ -17,9 +17,23 @@ var currentOpen = {
 
 /*用户-删除*/
 function member_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
+    layer.confirm('确认要删除吗？', function (i) {
         //发异步删除数据
-        $(obj).parents("tr").remove();
+        fengtoos.server({
+            url: base_path + 'admin/product/cate/' + id,
+            type: 'delete',
+            success: function(resp){
+                if(resp && resp.success){
+                    //发异步，把数据提交给后台
+                    layer.alert("增加成功", {icon: 6}, function () {
+                        //刷新页面的列表
+                        window.parent.createTreeTable(null);
+                    });
+                } else {
+                    layer.alert("操作失败", {icon: 5});
+                }
+            }
+        });
         layer.msg('已删除!', {icon: 1, time: 1000});
     });
 }
@@ -117,8 +131,8 @@ var makeLine = function(params) {
         '       <i class="layui-icon">&#xe642;</i>编辑</button>' +
         '   <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="openEdit(null,\'' + params.id + '\',\'' + params.name + '\')">' +
         '       <i class="layui-icon">&#xe642;</i>添加子栏目</button>' +
-        '   <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,\'要删除的id\')"' +
-        ' href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>' +
+        '   <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,\'' + params.id + '\')"' +
+        ' href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button`>' +
         '</td>' +
         '</tr>';
     return line;

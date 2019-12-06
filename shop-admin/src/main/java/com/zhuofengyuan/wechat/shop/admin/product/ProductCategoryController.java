@@ -6,6 +6,8 @@ import com.zhuofengyuan.wechat.shop.service.IProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/admin/product/cate")
 public class ProductCategoryController {
@@ -30,8 +32,8 @@ public class ProductCategoryController {
         return RestResponseBo.ok();
     }
 
-    @DeleteMapping("/delete")
-    public RestResponseBo delete(String id){
+    @DeleteMapping("/{id}")
+    public RestResponseBo delete(@PathVariable String id){
         this.productCategoryService.removeById(id);
         return RestResponseBo.ok();
     }

@@ -208,6 +208,7 @@ window.fengtoos = {
             data: {},//服务器数据参数
             success: null,//成功后的回调函数
             error: null,//失败后的回调函数
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
             beforeSend: function (xhr) {
 
             }
@@ -220,6 +221,7 @@ window.fengtoos = {
             url: params.url,
             data: params.data,
             async: params.async,
+            contentType: params.contentType,
             beforeSend: function(xhr){
                 if(this.url.endsWith('/oauth/token')){
                     params.beforeSend(xhr);

@@ -1,6 +1,6 @@
 layui.use(['form', 'layer'],
     function () {
-        var form = layui.form,
+        const form = layui.form,
             layer = layui.layer,
             $ = layui.jquery;
 
@@ -28,7 +28,7 @@ layui.use(['form', 'layer'],
 
         //监听提交
         form.on('submit(add)', function (params) {
-            data = params.field
+            let data = params.field
             if(data.status){
                 data.status = 1;
             } else {
@@ -38,16 +38,21 @@ layui.use(['form', 'layer'],
             fengtoos.server({
                 url: base_path + 'admin/product/cate/add',
                 type: 'post',
-                data: data.field,
+                data: JSON.stringify(data),
+                contentType: 'application/json',
                 success: function(resp){
                     if(resp && resp.success){
                         //发异步，把数据提交给后台
                         layer.alert("增加成功", {icon: 6}, function () {
+                            //刷新父页面的列表
+                            window.parent.createTreeTable(null);
                             // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
+                            let index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
                             parent.layer.close(index);
                         });
+                    } else {
+                        layer.alert("操作失败", {icon: 5});
                     }
                 }
             });
