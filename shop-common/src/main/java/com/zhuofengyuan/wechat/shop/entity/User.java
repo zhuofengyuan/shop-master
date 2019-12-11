@@ -17,5 +17,6 @@ public class User {
     private String username;
     private String screenName;
     private String password;
+    private int status;
     private int type;
 }

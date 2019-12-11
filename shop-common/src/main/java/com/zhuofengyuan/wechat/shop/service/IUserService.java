@@ -23,4 +23,12 @@ public interface IUserService extends IService<User> {
     User findByUsername(String username);
 
     Serializable findWxUser(User user);
+
+    /**
+     * 禁用和启用
+     * @param id
+     * @param status
+     * @return
+     */
+    boolean action(Serializable id, Integer status);
 }

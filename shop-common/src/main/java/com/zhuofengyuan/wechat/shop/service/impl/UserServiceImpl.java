@@ -6,6 +6,7 @@ import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.mapper.UserMapper;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhuofengyuan.wechat.shop.util.FengtoosUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,4 +59,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         return uid;
     }
+
+    @Override
+    public boolean action(Serializable id, Integer status) {
+        var entity = this.getById(id);
+        FengtoosUtil.null2Entity(entity);
+
+        var orgStatus = entity.getStatus();
+        if(1 == status){
+            if(2 != orgStatus){
+                throw new FengtoosException("只有禁用状态的用户才允许启用");
+            }
+        } else if(2 == status){
+            if(1 != orgStatus){
+                throw new FengtoosException("只有启用状态的用户才允许禁用");
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        var entity = this.getById(id);
+        FengtoosUtil.null2Entity(entity);
+
+        if(entity.getStatus() == 1){
+            throw new FengtoosException(500, "只有禁用状态的用户才允许删除");
+        }
+        return super.removeById(id);
+    }
+
 }

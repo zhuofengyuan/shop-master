@@ -111,6 +111,8 @@ public class RestResponseBo<T> {
         return new RestResponseBo(true);
     }
 
+    public static <T> RestResponseBo normal(boolean success) {return new RestResponseBo(success);};
+
     public static <T> RestResponseBo ok(T payload) {
         return new RestResponseBo(true, payload);
     }
