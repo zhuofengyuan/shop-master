@@ -13,7 +13,7 @@ spring:
     druid:
       url: jdbc:mysql://localhost:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
       username: root
-      password: root
+      password: 123456
       initial-size: 5
       max-active: 20
       min-idle: 10
@@ -26,12 +26,18 @@ spring:
     # host: 192.168.81.23
     host: localhost
     port: 6379
-    password: 123
+    password:
+
+  jackson:
+    generator:
+      write_numbers_as_strings: true
 
 mybatis-plus:
   mapperLocations: classpath*:mappers/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.zhuofengyuan.wechat.shop.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 pagehelper:
   helperDialect: mysql
@@ -44,4 +50,5 @@ zk:
 
 file:
   temppath: temp
+
 

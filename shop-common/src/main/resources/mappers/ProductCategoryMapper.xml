@@ -3,12 +3,14 @@
 <mapper namespace="com.zhuofengyuan.wechat.shop.mapper.ProductCategoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zhuofengyuan.wechat.shop.entity.ProductCategory">
+    <resultMap id="BaseResultMap" type="ProductCategory">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="parent" property="parent"/>
+        <result column="parentName" property="parentName"/>
         <result column="status" property="status"/>
         <result column="sort_order" property="sortOrder"/>
+        <collection property="children" ofType="ProductCategory" column="id" select="selectTreeByParent" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -17,14 +19,23 @@
         </sql>
 
     <sql id="Children_Column_List">
-                c.id, c.parent, c.name, c.status, c.sort_order
+                c.id cid, c.parent cparent, c.name cname, c.status cstatus, c.sort_order csort
         </sql>
 
     <select id="selectTree" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>,
-        <include refid="Children_Column_List"/>
+        '' parentName
         FROM product_category p
-        LEFT JOIN product_category c ON c.id = p.parent
+        WHERE parent = '-1'
+    </select>
+
+    <select id="selectTreeByParent" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>,
+        e.name parentName
+        FROM product_category p
+        LEFT JOIN product_category e on e.id = p.parent
+        WHERE p.parent = #{parent}
     </select>
 </mapper>

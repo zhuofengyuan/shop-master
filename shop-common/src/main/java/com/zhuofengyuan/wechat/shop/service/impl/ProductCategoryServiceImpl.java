@@ -1,12 +1,16 @@
 package com.zhuofengyuan.wechat.shop.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
+import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.mapper.ProductCategoryMapper;
 import com.zhuofengyuan.wechat.shop.service.IProductCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,5 +30,18 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     @Override
     public List<ProductCategory> findTree() {
         return this.productCategoryMapper.selectTree();
+    }
+
+    @Override
+    public boolean save(ProductCategory entity) {
+        String parentId = entity.getParent();
+        if(StringUtils.isEmpty(parentId)){
+            throw new FengtoosException(500, "entity parent is null");
+        }
+
+        super.save(entity);
+        var parent = this.getById(parentId);
+        entity.setPath(String.format("%s%s.", parent.getPath(), entity.getId()));
+        return this.updateById(entity);
     }
 }

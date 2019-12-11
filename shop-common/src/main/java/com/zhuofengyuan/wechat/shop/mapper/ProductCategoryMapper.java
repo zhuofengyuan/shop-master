@@ -22,4 +22,11 @@ public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
      * @return
      */
     List<ProductCategory> selectTree();
+
+    /**
+     * 根据父ID获取树
+     * @param parent
+     * @return
+     */
+    List<ProductCategory> selectTreeByParent(String parent);
 }

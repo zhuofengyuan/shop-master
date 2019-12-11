@@ -17,12 +17,6 @@ layui.use(['form', 'layer'],
                     return '昵称至少得2个字符啊';
                 }
             },
-            /*pass: [/(.+){6,12}$/, '密码必须6到12位'],
-            repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }*/
             sortOrder: [/^[0-9]+$/, '序号必须为正整数']
         });
 
@@ -34,25 +28,32 @@ layui.use(['form', 'layer'],
             } else {
                 data.status = 0;
             }
-            console.log(data)
+
+            let url = base_path + 'admin/product/cate/add';
+            if(data.id){
+                url = base_path + 'admin/product/cate/update'
+            }
             fengtoos.server({
-                url: base_path + 'admin/product/cate/add',
+                url: url,
                 type: 'post',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function(resp){
                     if(resp && resp.success){
                         //发异步，把数据提交给后台
-                        layer.alert("增加成功", {icon: 6}, function () {
-                            //刷新父页面的列表
-                            window.parent.createTreeTable(null);
+                        layer.msg("操作成功", {icon: 6, time: 800}, function () {
+
                             // 获得frame索引
                             let index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
                             parent.layer.close(index);
+
+                            //刷新父页面的列表
+                            window.parent.createTreeTable(null);
                         });
+
                     } else {
-                        layer.alert("操作失败", {icon: 5});
+                        layer.msg("操作失败", {icon: 5});
                     }
                 }
             });

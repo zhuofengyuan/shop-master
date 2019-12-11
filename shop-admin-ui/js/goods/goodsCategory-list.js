@@ -8,7 +8,7 @@ layui.use(['form'], function () {
 
 var currentOpen = {
     id: null,
-    parentId: 0,
+    parent: 0,
     parentName: null,
     name: null,
     sortOrder: null,
@@ -17,7 +17,7 @@ var currentOpen = {
 
 /*用户-删除*/
 function member_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (i) {
+    layer.confirm('删除该分类以及该分类的子分类，确认删除吗？', function (i) {
         //发异步删除数据
         fengtoos.server({
             url: base_path + 'admin/product/cate/' + id,
@@ -25,26 +25,19 @@ function member_del(obj, id) {
             success: function(resp){
                 if(resp && resp.success){
                     //发异步，把数据提交给后台
-                    layer.alert("增加成功", {icon: 6}, function () {
+                    layer.msg('删除成功', {icon: 6, time: 800}, function(){
                         //刷新页面的列表
-                        window.parent.createTreeTable(null);
+                        createTreeTable(null);
                     });
                 } else {
                     layer.alert("操作失败", {icon: 5});
                 }
             }
         });
-        layer.msg('已删除!', {icon: 1, time: 1000});
+        // layer.msg('已删除!', {icon: 1, time: 1000});
     });
 }
-function delAll(argument) {
-    var data = tableCheck.getData();
-    layer.confirm('确认要删除吗？' + data, function (index) {
-        //捉到所有被选中的，发异步进行删除
-        layer.msg('删除成功', {icon: 1});
-        $(".layui-form-checked").not('.header').parents('tr').remove();
-    });
-}
+
 //创建树形表格
 var $level = 0;
 var createTreeTable = function (data) {
@@ -86,7 +79,7 @@ var makeTree = function (data) {
 var openEdit = function (id, parentId, parentName, name, sortOrder, status) {
     currentOpen = {
         id: id,
-        parentId: parentId,
+        parent: parentId,
         parentName: parentName,
         name: name,
         sortOrder: sortOrder,
@@ -99,7 +92,7 @@ var makeLine = function(params) {
     var empty = '';
     var _params = {
         id: null,
-        parentId: 0,
+        parent: 0,
         name: null,
         sortOrder: null,
         status: null,
@@ -112,13 +105,13 @@ var makeLine = function(params) {
         empty += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     }
     //是否为最后一个元素
-    if(params.children == null){
+    if(params.children == null || params.children.length == 0){
         params.isLast = true
     }
-    var line = '<tr cate-id="' + params.id + '" fid="' + params.parentId + '">' +
-        '<td>' +
-        '   <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="2"><i class="layui-icon">&#xe605;</i></div>' +
-        '</td>' +
+    var line = '<tr cate-id="' + params.id + '" fid="' + params.parent + '">' +
+        // '<td>' +
+        // '   <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="2"><i class="layui-icon">&#xe605;</i></div>' +
+        // '</td>' +
         '<td>' + params.sortOrder + '</td>' +
         '<td>' + empty +
         (params.isLast?'':'<i class="layui-icon x-show" status="true">&#xe623;</i>') +
@@ -127,7 +120,8 @@ var makeLine = function(params) {
         (params.status?'checked':'') +
         ' lay-skin="switch"></td>' +
         '<td class="td-manage">' +
-        '   <button class="layui-btn layui-btn layui-btn-xs" onclick="x_admin_show(\'编辑\',\'admin-edit.html\')">' +
+        '   <button class="layui-btn layui-btn layui-btn-xs" onclick="openEdit(\'' + params.id + '\',\'' + params.parent + '\',\'' +
+        params.parentName + '\',' + '\'' + params.name + '\',' + params.sortOrder + ',' + params.status + ')">' +
         '       <i class="layui-icon">&#xe642;</i>编辑</button>' +
         '   <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="openEdit(null,\'' + params.id + '\',\'' + params.name + '\')">' +
         '       <i class="layui-icon">&#xe642;</i>添加子栏目</button>' +
