@@ -500,12 +500,16 @@ table th, table td {
 .x-admin-sm .layui-laydate{
     font-size: 12px;
 }
-.x-admin-sm  .layui-btn{
+.x-admin-sm .layui-btn{
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
 }
-
+.x-admin-sm .layui-btn-xs{
+    height: 22px;
+    line-height: 22px;
+    padding: 0 5px;
+}
 .x-admin-sm .layui-btn-lg{
     height: 38px;
     line-height: 38px;

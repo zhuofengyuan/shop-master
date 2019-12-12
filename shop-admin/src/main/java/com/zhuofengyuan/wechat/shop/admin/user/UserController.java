@@ -1,15 +1,15 @@
 package com.zhuofengyuan.wechat.shop.admin.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zhuofengyuan.wechat.shop.entity.Product;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
@@ -36,6 +36,7 @@ public class UserController {
         user.setLogo(avatarUrl);
         user.setName(nickname);
         user.setScreenName(nickname);
+        user.setStatus(1);
         user.setPassword(encoder.encode(wechatSettings.getInitialPwd()));
         return RestResponseBo.ok(this.userService.findWxUser(user));
     }
@@ -44,7 +45,7 @@ public class UserController {
     public RestResponseBo list(@RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
                                @RequestParam(name = "limit", defaultValue = "10") Integer pageSize){
         Page<User> page = new Page<>(pageNumber, pageSize);
-        return RestResponseBo.ok(this.userService.page(page));
+        return RestResponseBo.ok(this.userService.page(page), 0);
     }
 
     @PostMapping("/add")

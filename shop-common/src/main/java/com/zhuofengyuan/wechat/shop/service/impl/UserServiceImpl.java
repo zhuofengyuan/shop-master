@@ -1,6 +1,7 @@
 package com.zhuofengyuan.wechat.shop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.kotlin.KtUpdateWrapper;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.mapper.UserMapper;
@@ -75,7 +76,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 throw new FengtoosException("只有启用状态的用户才允许禁用");
             }
         }
-        return false;
+
+        var u = new User();
+        u.setStatus(status);
+        return this.update(u, new QueryWrapper<User>().eq("id", id));
     }
 
     @Override
