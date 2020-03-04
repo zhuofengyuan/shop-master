@@ -24,7 +24,7 @@
 <body class="login-bg">
     
     <div class="login layui-anim layui-anim-up">
-        <div class="message">半糖微信商城管理登录</div>
+        <div class="message">木林森照明科技数据分析平台登录</div>
         <div id="darkbannerwrap"></div>
         
         <form method="post" class="layui-form" >
@@ -66,6 +66,7 @@
                             xhr.setRequestHeader("Authorization", 'Basic ' + Base64.encode(client_id + ':' + client_secret));
                         },
                         success: function (result) {
+                            console.log(result + '-----------------------------------');
                             if (result) {
                                 //保存token
                                 saveAuth(result);

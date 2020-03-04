@@ -1,4 +1,5 @@
 var base_path = 'http://localhost:8080/';
+var ittun_path = 'http://fengtoos.ittun.com/';
 var oauth_server = base_path;
 var redirect_uri = base_path + 'view/index';
 var client_id = 'client_2';

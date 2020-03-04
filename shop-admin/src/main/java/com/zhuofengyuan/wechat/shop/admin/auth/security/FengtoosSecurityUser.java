@@ -15,11 +15,15 @@ public class FengtoosSecurityUser extends SecurityUser implements Serializable, 
 
     private static final long serialVersionUID = 3945179659081211914L;
 
+    /** 权限列表 */
     private Collection<GrantedAuthority> authorities;
+    /** pbi的AADToken */
+    private String pbiAADToken;
 
-    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, Long id, String nickName, String loginName, String loginPwd, String logo) {
+    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, Long id, String nickName, String loginName, String loginPwd, String logo, String aadToken) {
         super(id, nickName, loginName, loginPwd, logo);
         this.authorities = authorities;
+        this.pbiAADToken = aadToken;
     }
 
     @Override

@@ -202,6 +202,7 @@ window.fengtoos = {
         var _params = {
             ajaxCount: 0,
             url: "",
+            urlType: "fengtoos",
             offlineUrl: "",
             type: "post",//默认是post
             async: false,
@@ -230,11 +231,17 @@ window.fengtoos = {
                 if (getAuth() == null){
                     window.location.href = 'login.html'
                 }
-                var auth = getAuth();
-                if(auth != null){
-                    xhr.setRequestHeader("Authorization", auth.token_type + ' ' + auth.access_token);
+
+                if(params.urlType == 'AAD'){
+                    var t = getUser().principal.pbiAADToken;
+                    xhr.setRequestHeader("Authorization", 'Bearer ' + t);
                 } else {
-                    return false;
+                    var auth = getAuth();
+                    if(auth != null){
+                        xhr.setRequestHeader("Authorization", auth.token_type + ' ' + auth.access_token);
+                    } else {
+                        return false;
+                    }
                 }
                 return true;
             },
@@ -255,26 +262,23 @@ window.fengtoos = {
                 var status = parseInt(XMLHttpRequest.status);
                 if(status == 401 && XMLHttpRequest.responseJSON.error =='invalid_token'){
                     refreshToken();
-                }else{
+                }else if((status == 401 || status == 403) && $.trim(params.urlType) == "AAD"){
+                    //重新刷新权限
+                    fengtoos.server({
+                        url: base_path + 'wechat/principal',
+                        type: 'get',
+                        success: function(r){
+                            saveUser(r);
+                        }
+                    })
+
+                    if (params.ajaxCount <= 1) {
+                        //自身调用,有且只调用一次
+                        _selfFn(params);
+                    }
+                } else {
                     fengtoos.msg({content: XMLHttpRequest.responseJSON.msg, icon: 2})
                 }
-                // if ((status == 404 || status == 405 ) && $.trim(params.offlineUrl).length > 0) {
-                //
-                //     if (params.onlineUrl.search(/.json/) == -1) {//自身调用一次
-                //         var tempUrl = params.onlineUrl;
-                //         params.onlineUrl = params.offlineUrl;
-                //         params.offlineUrl = tempUrl;
-                //         params.type = "get";
-                //     }
-                //
-                //     if (params.ajaxCount <= 1) {
-                //         //自身调用,有且只调用一次
-                //         _selfFn(params);
-                //     }
-                //
-                // } else {
-                //     //alert(XMLHttpRequest + " " + textStatus + " " + errorThrown);
-                // }
             }
         });
 

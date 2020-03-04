@@ -1,5 +1,6 @@
 package com.zhuofengyuan.wechat.shop.config;
 
+import com.zhuofengyuan.wechat.shop.prop.PbiSettings;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,7 +10,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-public class WechatConfig {
+public class PropConfig {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
@@ -24,5 +25,12 @@ public class WechatConfig {
     @ConfigurationProperties(prefix = "wechat")
     public WechatSettings getWechatSettings(){
         return new WechatSettings();
+    }
+
+
+    @Bean
+    @ConfigurationProperties(prefix = "pbi")
+    public PbiSettings getPbiSettings(){
+        return new PbiSettings();
     }
 }

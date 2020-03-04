@@ -36,7 +36,7 @@
         <!-- 顶部开始 -->
         <div class="container">
             <div class="logo">
-                <a href="./index.html">X-admin v2.2</a></div>
+                <a href="./index.html" style="font-size: 15px;">木林森照明科技数据分析平台</a></div>
             <div class="left_open">
                 <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
             </div>
@@ -65,6 +65,10 @@
             </ul>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
+                    <a id="fullScreen" href="javascript:" style="padding: 0px;">
+                        <i class="layui-icon layui-icon-screen-full" style="font-size: 25px;"></i>
+                    </a></li>
+                <li class="layui-nav-item">
                     <a href="javascript:;" id="user-name"></a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
@@ -76,8 +80,6 @@
                             <a href="javascript:logout()">退出</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -384,5 +386,78 @@
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
     </body>
+<script>
+    /**
+     * 键盘的事件监听
+     */
+    $("body").on("keydown", function (event) {
+        event = event || window.event || arguments.callee.caller.arguments[0];
 
+        // 按 Esc
+        if (event && event.keyCode === 27) {
+            console.log("Esc");
+            $("#fullScreen").children("i").eq(0).removeClass("layui-icon-screen-restore");
+        }
+        // 按 F11
+        if (event && event.keyCode == 122) {
+            console.log("F11");
+            $("#fullScreen").children("i").eq(0).addClass("layui-icon-screen-restore");
+        }
+    });
+
+    /**
+     * 全屏/退出全屏
+     */
+    $("body").on("click", "#fullScreen", function () {
+        if ($(this).children("i").hasClass("layui-icon-screen-restore")) {
+            screenFun(2).then(function () {
+                $("#fullScreen").children("i").eq(0).removeClass("layui-icon-screen-restore");
+            });
+        } else {
+            screenFun(1).then(function () {
+                $("#fullScreen").children("i").eq(0).addClass("layui-icon-screen-restore");
+            });
+        }
+    });
+
+    /**
+     * 全屏和退出全屏的方法
+     * @param num 1代表全屏 2代表退出全屏
+     * @returns {Promise}
+     */
+    function screenFun(num) {
+        num = num || 1;
+        num = num * 1;
+        var docElm = document.documentElement;
+
+        switch (num) {
+            case 1:
+                if (docElm.requestFullscreen) {
+                    docElm.requestFullscreen();
+                } else if (docElm.mozRequestFullScreen) {
+                    docElm.mozRequestFullScreen();
+                } else if (docElm.webkitRequestFullScreen) {
+                    docElm.webkitRequestFullScreen();
+                } else if (docElm.msRequestFullscreen) {
+                    docElm.msRequestFullscreen();
+                }
+                break;
+            case 2:
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                break;
+        }
+
+        return new Promise(function (res, rej) {
+            res("返回值");
+        });
+    }
+</script>
 </html>

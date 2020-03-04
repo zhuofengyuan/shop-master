@@ -1,1 +1,2 @@
 var wxLogin = base_path + 'wx/api/login?type=wechat'
+var pbiEmbedToken = 'https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/reports/fddcd03a-d3cb-402c-81a6-bc80d0ec4c96/GenerateToken'

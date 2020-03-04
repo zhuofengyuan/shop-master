@@ -5,5 +5,13 @@ wechat:
   refresh-token-key: wx.user.refreshtoken
   initial-pwd: 123456
 
+pbi:
+  resource: https://analysis.windows.net/powerbi/api
+  client_id: c3b1069c-50b9-4bf8-b52e-201a843eeea2
+  grant_type: password
+  password: Yzf19950420
+  username: fengtoos.yuan@zsmls.cn
+  client_secret: P/eeqJ:Y2.wAhcdcLgCZ?9IEb23Upm@l
+
 
 

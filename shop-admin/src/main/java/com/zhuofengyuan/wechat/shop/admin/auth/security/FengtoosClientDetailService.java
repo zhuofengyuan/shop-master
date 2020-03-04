@@ -33,6 +33,7 @@ public class FengtoosClientDetailService implements ClientDetailsService {
             client.setRefreshTokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(1)); //1天
             Set<String> uris = new HashSet<>();
             uris.add("http://localhost:8080/login");
+            uris.add("http://fengtoos.ittun.com/login");
             client.setRegisteredRedirectUri(uris);
         }
         if(client == null) {
