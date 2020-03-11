@@ -80,6 +80,50 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <!--dockermaven编译插件-->
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>1.2.0</version>
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>default</id>-->
+<!--            <goals>-->
+<!--              <goal>build</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+        <configuration>
+          <!--指定生成的镜像名-->
+          <imageName>${docker.image.prefix}/${project.artifactId}</imageName><!--指定标签-->
+          <imageTags>
+            <imageTag>${project.version}</imageTag>
+          </imageTags>
+          <!-- 指定 Dockerfile 路径-->
+          <dockerDirectory>${project.basedir}/src/main</dockerDirectory>
+          <dockerHost>http://192.168.68.79:2375</dockerHost>
+
+          <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <!--jar 包所在的路径  此处配置的 即对应 target 目录-->
+              <directory>${project.build.directory}</directory>
+              <!-- 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　-->
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+
+<!--          <repository>${docker.image.prefix}/${project.artifactId}</repository>-->
+<!--          <tag>${project.version}</tag>-->
+<!--          <username>username</username>-->
+<!--          <password>password</password>-->
+<!--          <buildArgs>-->
+<!--            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+<!--          </buildArgs>-->
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 

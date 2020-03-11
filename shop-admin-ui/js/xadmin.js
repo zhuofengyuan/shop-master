@@ -610,3 +610,16 @@ if (!raw) {
 }
 return rawHMACMD5(key, string)
 }
+
+String.prototype.format=function(){
+    if(arguments.length===0){
+        return String(this);
+    }
+    let reg=/(\{\d\})/;
+    let r=this;
+    while(reg.test(r)){
+        let index=RegExp.$1.slice(1,-1);
+        r = r.replace(new RegExp("\\{"+index+"\\}","g"),(index >= arguments.length)?"":arguments[index]);
+    }
+    return r;
+};

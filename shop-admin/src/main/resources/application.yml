@@ -3,6 +3,7 @@ server:
 
 fengtoos:
   ipaddress: 127.0.0.1
+  pbiaddress: 192.168.68.79
 
 spring:
   application:
@@ -11,9 +12,9 @@ spring:
     include:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      url: jdbc:mysql://${fengtoos.pbiaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
       username: root
-      password: 123456
+      password: Mls2020*
       initial-size: 5
       max-active: 20
       min-idle: 10
@@ -23,10 +24,9 @@ spring:
   redis:
     #数据库索引
     database: 1
-    # host: 192.168.81.23
-    host: localhost
+    host: ${fengtoos.pbiaddress}
     port: 6379
-    password:
+    password: mls2020*
 
   jackson:
     generator:
@@ -46,7 +46,7 @@ pagehelper:
   params: count=countSql
 
 zk:
-  host: 127.0.0.1:2181
+  host: ${fengtoos.pbiaddress}:2181
 
 file:
   temppath: temp

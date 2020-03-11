@@ -23,6 +23,7 @@
 
   <properties>
     <java.version>11</java.version>
+    <docker.image.prefix>mlszm-admin</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -63,5 +64,4 @@
     </dependency>
 
   </dependencies>
-
 </project>

@@ -34,10 +34,9 @@
 </style>
 <body>
     <div id="reportContainer"></div>
-<!--    <iframe width="100%" height="100%" src="https://app.powerbi.com/reportEmbed?reportId=93dac716-8065-4db2-8bde-7860475d7c0c&autoAuth=true&ctid=09818c1b-d36c-40a0-9052-a202c03a3b0a&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>-->
 </body>
 <script>
-
+    var $report;
     function loadReport(accessToken, embedReportId, embedUrl){
 
         // Read embed application token from Model
@@ -48,13 +47,13 @@
         // var embedReportId = "fddcd03a-d3cb-402c-81a6-bc80d0ec4c96";
 
         // Get models. models contains enums that can be used.
-        var models = window['powerbi-client'].models;
+        const models = window['powerbi-client'].models;
 
         // Embed configuration used to describe what and how to embed.
         // This object is used when calling powerbi.embed.
         // This also includes settings and options such as filters.
         // You can find more information at https://github.com/Microsoft/PowerBI-JavaScript/wiki/Embed-Configuration-Details.
-        var config = {
+        const config = {
             type: 'report',
             tokenType: models.TokenType.Embed,
             accessToken: accessToken,
@@ -68,22 +67,38 @@
         };
 
         // Get a reference to the embedded report HTML element
-        var reportContainer = $('#reportContainer')[0];
+        const reportContainer = $('#reportContainer')[0];
 
         // Embed the report and display it within the div container.
-        var report = powerbi.embed(reportContainer, config);
+        $report = powerbi.embed(reportContainer, config);
+
+        setInterval('refreshToken()', 3500000);
     }
 
+    function refreshToken(){
+        fengtoos.server({
+            urlType: "AAD",
+            url: pbiGroupEmbedToken,
+            async: true,
+            data: {
+                accessLevel: "View"
+            },
+            success: function(rs){
+                $report.setAccessToken(rs.token);
+            }
+        })
+    }
 
     fengtoos.server({
         urlType: "AAD",
-        url: pbiEmbedToken,
+        url: pbiGroupEmbedToken,
+        async: true,
         data: {
             accessLevel: "View"
         },
         success: function(rs){
             let token = rs.token;
-            loadReport(token, "fddcd03a-d3cb-402c-81a6-bc80d0ec4c96", "https://app.powerbi.com/reportEmbed?reportId=fddcd03a-d3cb-402c-81a6-bc80d0ec4c96")
+            loadReport(token, "c4836748-98d1-435f-b7b3-12b1fffd1b63", "https://app.powerbi.com/reportEmbed?reportId=c4836748-98d1-435f-b7b3-12b1fffd1b63")
         }
     })
 </script>

@@ -1,9 +1,7 @@
 package com.zhuofengyuan.wechat.shop.util;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zhuofengyuan.wechat.shop.prop.PbiSettings;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.http.HttpClient;
