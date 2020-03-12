@@ -10,24 +10,7 @@ spring:
     name: shop-admin
   profiles:
     include:
-  datasource:
-    druid:
-      url: jdbc:mysql://${fengtoos.pbiaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
-      username: root
-      password: Mls2020*
-      initial-size: 5
-      max-active: 20
-      min-idle: 10
-      max-wait: 10
-
-  # redis 配置
-  redis:
-    #数据库索引
-    database: 1
-    host: ${fengtoos.pbiaddress}
-    port: 6379
-    password: mls2020*
-
+    active: dev
   jackson:
     generator:
       write_numbers_as_strings: true
@@ -44,11 +27,5 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-
-zk:
-  host: ${fengtoos.pbiaddress}:2181
-
-file:
-  temppath: temp
 
 

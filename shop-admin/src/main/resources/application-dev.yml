@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://${fengtoos.ipaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      username: root
+      password: 123456
+      initial-size: 5
+      max-active: 20
+      min-idle: 10
+      max-wait: 10
+
+  # redis 配置
+  redis:
+    #数据库索引
+    database: 1
+    host: ${fengtoos.ipaddress}
+    port: 6379
+    password:
+
+  jackson:
+    generator:
+      write_numbers_as_strings: true
+zk:
+  host: ${fengtoos.ipaddress}:2181
+
+file:
+  temppath: temp
+
+

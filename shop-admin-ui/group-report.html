@@ -71,8 +71,6 @@
 
         // Embed the report and display it within the div container.
         $report = powerbi.embed(reportContainer, config);
-
-        setInterval('refreshToken()', 3500000);
     }
 
     function refreshToken(){
@@ -101,4 +99,7 @@
             loadReport(token, "c4836748-98d1-435f-b7b3-12b1fffd1b63", "https://app.powerbi.com/reportEmbed?reportId=c4836748-98d1-435f-b7b3-12b1fffd1b63")
         }
     })
+
+    // Refresh the token
+    setInterval('refreshToken()', 3500000);
 </script>

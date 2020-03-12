@@ -36,7 +36,7 @@
     <div id="reportContainer"></div>
 </body>
 <script>
-
+    var $report;
     function loadReport(accessToken, embedReportId, embedUrl){
 
         // Read embed application token from Model
@@ -70,9 +70,22 @@
         var reportContainer = $('#reportContainer')[0];
 
         // Embed the report and display it within the div container.
-        var report = powerbi.embed(reportContainer, config);
+        $report = powerbi.embed(reportContainer, config);
     }
 
+    function refreshToken(){
+        fengtoos.server({
+            urlType: "AAD",
+            url: pbiGroupEmbedToken,
+            async: true,
+            data: {
+                accessLevel: "View"
+            },
+            success: function(rs){
+                $report.setAccessToken(rs.token);
+            }
+        })
+    }
 
     fengtoos.server({
         urlType: "AAD",
@@ -86,4 +99,8 @@
             loadReport(token, "fddcd03a-d3cb-402c-81a6-bc80d0ec4c96", "https://app.powerbi.com/reportEmbed?reportId=fddcd03a-d3cb-402c-81a6-bc80d0ec4c96")
         }
     })
+
+
+    // Refresh the token
+    setInterval('refreshToken()', 3500000);
 </script>
