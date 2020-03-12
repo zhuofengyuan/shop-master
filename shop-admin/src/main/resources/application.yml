@@ -2,8 +2,8 @@ server:
   port: 8080
 
 fengtoos:
-  ipaddress: 127.0.0.1
-  pbiaddress: 192.168.68.79
+  devaddress: 127.0.0.1
+  prodaddress: 192.168.68.79
 
 spring:
   application:

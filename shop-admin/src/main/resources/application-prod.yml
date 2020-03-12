@@ -1,7 +1,7 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://${fengtoos.pbiaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      url: jdbc:mysql://${fengtoos.prodaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
       username: root
       password: Mls2020*
       initial-size: 5
@@ -13,7 +13,7 @@ spring:
   redis:
     #数据库索引
     database: 1
-    host: ${fengtoos.pbiaddress}
+    host: ${fengtoos.prodaddress}
     port: 6379
     password: mls2020*
 
@@ -22,7 +22,7 @@ spring:
       write_numbers_as_strings: true
 
 zk:
-  host: ${fengtoos.pbiaddress}:2181
+  host: ${fengtoos.prodaddress}:2181
 
 file:
   temppath: temp

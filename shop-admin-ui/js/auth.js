@@ -1,4 +1,4 @@
-var prod_path = 'http://zm.zsmls.com/';
+// var base_path = 'http://zm.zsmls.com/';
 var base_path = 'http://localhost:8080/';
 var ittun_path = 'http://fengtoos.ittun.com/';
 var oauth_server = base_path;
