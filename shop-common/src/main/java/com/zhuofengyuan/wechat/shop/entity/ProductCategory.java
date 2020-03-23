@@ -13,14 +13,17 @@ import java.util.List;
 public class ProductCategory {
 
     @TableId(type = IdType.NONE)
-    private Long id;
+    private String id;
     private String name;
     private Integer status;
     private String parent;
+    private String number;
+    private Integer level;
     @TableField(exist = false)
     private String parentName;
     private Integer sortOrder;
     private String path;
+    private Boolean isLeaf;
     @TableField(exist = false)
     private List<ProductCategory> children;
 }

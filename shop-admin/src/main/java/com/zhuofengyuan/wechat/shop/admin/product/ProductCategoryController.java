@@ -20,8 +20,8 @@ public class ProductCategoryController {
     IProductCategoryService productCategoryService;
 
     @GetMapping("/tree")
-    public RestResponseBo findTree(){
-        return RestResponseBo.ok(this.productCategoryService.findTree(), 200);
+    public RestResponseBo findTree(String parent){
+        return RestResponseBo.ok(this.productCategoryService.findTree(parent), 200);
     }
 
     @PostMapping("/add")

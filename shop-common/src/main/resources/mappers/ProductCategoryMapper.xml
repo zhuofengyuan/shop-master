@@ -9,13 +9,16 @@
         <result column="parent" property="parent"/>
         <result column="parentName" property="parentName"/>
         <result column="status" property="status"/>
+        <result column="level" property="level"/>
+        <result column="number" property="number"/>
         <result column="sort_order" property="sortOrder"/>
-        <collection property="children" ofType="ProductCategory" column="id" select="selectTreeByParent" />
+        <result column="is_leaf" property="isLeaf"/>
+<!--        <collection property="children" ofType="ProductCategory" column="id" select="selectTreeByParent" />-->
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-                p.id, p.parent, p.name, p.status, p.sort_order
+                p.id, p.parent, p.name, p.status, p.sort_order, p.level, p.number, p.is_leaf
         </sql>
 
     <sql id="Children_Column_List">
@@ -27,7 +30,7 @@
         <include refid="Base_Column_List"/>,
         '' parentName
         FROM product_category p
-        WHERE parent = '-1'
+        WHERE parent is null
     </select>
 
     <select id="selectTreeByParent" resultMap="BaseResultMap">

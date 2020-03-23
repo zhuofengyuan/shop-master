@@ -4,6 +4,9 @@ server:
 fengtoos:
   devaddress: 127.0.0.1
   prodaddress: 192.168.68.79
+  default:
+    avaterUrl: http://zm.zsmls.com/images/favicon.ico
+    dateFmt: yyyy-MM-dd HH:mm:ss
 
 spring:
   application:
@@ -27,5 +30,7 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+
 
 

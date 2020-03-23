@@ -74,7 +74,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
 
         File entity = new File();
         entity.setFilename(file.getName());
-        entity.setPath(path.toUri().getPath());
+        entity.setPath(path.toUri().getPath().substring(1));
         entity.setCreateUser(this.userInstance.getCurrentUser().getId());
         entity.setType(1);
 

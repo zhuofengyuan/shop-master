@@ -1,11 +1,14 @@
 package com.zhuofengyuan.wechat.shop.admin.user;
+import	java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +24,8 @@ public class UserController {
     PasswordEncoder encoder;
     @Autowired
     WechatSettings wechatSettings;
+    @Value("${fengtoos.default.avaterUrl}")
+    String defalutAvaterUrl;
 
     /**
      * 获取系统用户信息
@@ -50,6 +55,11 @@ public class UserController {
 
     @PostMapping("/add")
     public RestResponseBo add(@RequestBody User entity){
+        entity.setStatus(1);
+        entity.setCreateDate(LocalDateTime.now());
+        entity.setScreenName(entity.getName());
+        entity.setLogo(StringUtils.isEmpty(entity.getLogo())?defalutAvaterUrl:entity.getLogo());
+        entity.setPassword(encoder.encode(entity.getPassword()));
         return RestResponseBo.normal(this.userService.save(entity));
     }
 
@@ -58,7 +68,7 @@ public class UserController {
         return RestResponseBo.normal(this.userService.updateById(entity));
     }
 
-    @DeleteMapping("/{id}}")
+    @DeleteMapping("/del/{id}}")
     public RestResponseBo delete(@PathVariable String id){
         return RestResponseBo.normal(this.userService.removeById(id));
     }

@@ -36,10 +36,12 @@ layui.use(['laydate', 'table'], function () {
             , {field: 'username', title: '用户名'}
             , {field: 'screenName', title: '昵称'}
             , {title: '头像', templet: function(v){
-                return '<img class="layui-nav-img" src="' + v.logo + '">';
-              }}
+                return '<img class="layui-nav-img" src="' + image_path + v.logo + '">';
+            }}
             , {field: 'phone', title: '手机号码'}
-            , {field: 'createDate', title: '创建时间'}
+            , {field: 'createDate', title: '创建时间', templet: function(v){
+                return v.createDate;
+            }}
             , {title:'是否禁用', templet: '#checkboxTpl', unresize: true}
             , {title: '操作', align: 'center', toolbar: '#barUser'}
         ]]
@@ -61,9 +63,19 @@ layui.use(['laydate', 'table'], function () {
             layer.msg('查看操作');
         } else if (layEvent === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                obj.del(); //删除对应行（tr）的DOM结构
+                // obj.del(); //删除对应行（tr）的DOM结构
+                console.log(data)
                 layer.close(index);
                 //向服务端发送删除指令
+                fengtoos.server({
+                    url: base_path + 'user/del/' + data.id,
+                    type: 'delete',
+                    success: function(resp) {
+                        if(resp & resp.success){
+                            layer.msg('删除成功', {icon: 1});
+                        }
+                    }
+                })
             });
         } else if (layEvent === 'edit') {
             layer.msg('编辑操作');
@@ -91,14 +103,6 @@ layui.use(['laydate', 'table'], function () {
         //layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
     });
 });
-/*用户-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
-        //发异步删除数据
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!', {icon: 1, time: 1000});
-    });
-}
 function delAll(argument) {
     var data = tableCheck.getData();
     layer.confirm('确认要删除吗？' + data, function (index) {

@@ -24,6 +24,7 @@
         jquery: "modules/jquery",
         mobile: "modules/mobile",
         fengtoosGVerify: "modules/fengtoosGVerify",
+        eleTree: "modules/eleTree",
         "layui.all": "../layui.all"
     });
 

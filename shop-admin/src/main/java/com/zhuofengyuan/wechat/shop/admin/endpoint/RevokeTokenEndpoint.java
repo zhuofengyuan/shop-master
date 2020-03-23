@@ -36,7 +36,7 @@ public class RevokeTokenEndpoint {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/")
     @ResponseBody
     public void index(HttpServletResponse response) throws ServletException, IOException {
         if("prod".equalsIgnoreCase(active)){

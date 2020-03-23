@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/xadmin.css">
         <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
@@ -23,7 +24,7 @@
         <![endif]-->
         <script>
             // 是否开启刷新记忆tab功能
-            // var is_remember = false;
+            var is_remember = false;
             $(function () {
                $("#user-name").html(function(){
                    var str = '<img class="layui-nav-img" src="' + getUser().principal.logo + '">' + getUser().principal.nickName;
@@ -136,8 +137,8 @@
                     </li>-->
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="销售管理">&#xe723;</i>
-                            <cite>销售管理</cite>
+                            <i class="iconfont left-nav-li" lay-tips="报表管理">&#xe723;</i>
+                            <cite>报表管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
@@ -152,25 +153,30 @@
                             </li>
                         </ul>
                     </li>
-                    <!--<li>
+                    <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="商品管理">&#xe723;</i>
-                            <cite>商品管理</cite>
+                            <i class="iconfont left-nav-li" lay-tips="销售管理">&#xe723;</i>
+                            <cite>销售管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('商品列表','goods-list.html')">
+                                <a onclick="xadmin.add_tab('销售任务列表','task-list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>商品列表</cite></a>
+                                    <cite>销售任务列表</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('商品分类','goodsCategory-list.html')">
+                                <a onclick="xadmin.add_tab('物料型号对照表','goodsCategory-list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>商品分类</cite></a>
+                                    <cite>物料型号对照表</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('树形控件','tree-list.html')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>树形控件</cite></a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
                             <cite>分类管理</cite>

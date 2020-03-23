@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface IProductCategoryService extends IService<ProductCategory> {
 
-    List<ProductCategory> findTree();
+    List<ProductCategory> findTree(String pid);
 }

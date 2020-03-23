@@ -28,8 +28,12 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     ProductCategoryMapper productCategoryMapper;
 
     @Override
-    public List<ProductCategory> findTree() {
-        return this.productCategoryMapper.selectTree();
+    public List<ProductCategory> findTree(String pid) {
+        if (StringUtils.isEmpty(pid)){
+            return this.productCategoryMapper.selectTree();
+        } else {
+            return this.productCategoryMapper.selectTreeByParent(pid);
+        }
     }
 
     @Override
