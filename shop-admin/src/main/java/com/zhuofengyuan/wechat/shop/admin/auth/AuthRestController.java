@@ -6,6 +6,8 @@ import com.zhuofengyuan.wechat.shop.admin.auth.pbi.PbiAAdTokenService;
 import com.zhuofengyuan.wechat.shop.admin.auth.security.FengtoosSecurityUser;
 import com.zhuofengyuan.wechat.shop.prop.PbiSettings;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
+import com.zhuofengyuan.wechat.shop.service.IProvinceTaskService;
+import com.zhuofengyuan.wechat.shop.util.ExcelTest;
 import com.zhuofengyuan.wechat.shop.util.PbiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,6 +26,8 @@ public class AuthRestController {
     WechatSettings wechatSettings;
     @Autowired
     PbiAAdTokenService aAdTokenService;
+    @Autowired
+    IProvinceTaskService provinceTaskService;
 
     @GetMapping
     public String conn(String echostr){
@@ -32,7 +36,8 @@ public class AuthRestController {
     }
 
     @GetMapping("/test")
-    public String test(){
+    public String test() throws Exception {
+//        provinceTaskService.saveBatch(ExcelTest.readTable("F:\\fengtoos\\powerbi\\2020\\template.xlsx"));
         return "hello world";
     }
 

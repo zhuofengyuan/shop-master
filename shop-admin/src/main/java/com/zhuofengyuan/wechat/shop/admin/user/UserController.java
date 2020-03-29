@@ -68,7 +68,7 @@ public class UserController {
         return RestResponseBo.normal(this.userService.updateById(entity));
     }
 
-    @DeleteMapping("/del/{id}}")
+    @DeleteMapping("/{id}")
     public RestResponseBo delete(@PathVariable String id){
         return RestResponseBo.normal(this.userService.removeById(id));
     }

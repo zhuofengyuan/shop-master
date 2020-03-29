@@ -44,13 +44,16 @@ public class ExcelTest {
 //            if(!"综合管理中心".equals(row.getCell(0).getRichStringCellValue().toString())){
 //                continue;
 //            }
-            var pro = row.getCell(0).getRichStringCellValue().toString();
+            String pro = null;
+            if(row.getCell(0) != null){
+                pro = row.getCell(0).getRichStringCellValue().toString();
+            }
             for(int j = 1; j <= 12; j++){
 //                Map<String, Object> rowm = new HashMap<String, Object>();
                 var rowm = new ProvinceTask();
                 rowm.setDept("商照事业部");
                 rowm.setMonth(j);
-                rowm.setYear(2019);
+                rowm.setYear(2020);
                 rowm.setAmount(new BigDecimal(row.getCell(j).getNumericCellValue() * 10000));
                 rowm.setProvince(pro);
 //                rowm.put("dept", "家居事业部");
@@ -59,6 +62,7 @@ public class ExcelTest {
 //                rowm.put("month", j);
 //                rowm.put("province", pro);
                 list.add(rowm);
+                System.out.println(pro + "-" + row.getCell(j).getNumericCellValue());
             }
 //            row.getCell(1).setCellType(CellType.STRING);
 //            rowm.put("code", row.getCell(1).getRichStringCellValue().toString());

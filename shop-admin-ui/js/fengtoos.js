@@ -277,7 +277,7 @@ window.fengtoos = {
                         _selfFn(params);
                     }
                 } else {
-                    fengtoos.msg({content: XMLHttpRequest.responseJSON.msg, icon: 2})
+                    fengtoos.msg({content: XMLHttpRequest.responseJSON.message, icon: 2})
                 }
             }
         });

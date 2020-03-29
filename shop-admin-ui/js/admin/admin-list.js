@@ -39,9 +39,7 @@ layui.use(['laydate', 'table'], function () {
                 return '<img class="layui-nav-img" src="' + image_path + v.logo + '">';
             }}
             , {field: 'phone', title: '手机号码'}
-            , {field: 'createDate', title: '创建时间', templet: function(v){
-                return v.createDate;
-            }}
+            , {field: 'createDate', title: '创建时间'}
             , {title:'是否禁用', templet: '#checkboxTpl', unresize: true}
             , {title: '操作', align: 'center', toolbar: '#barUser'}
         ]]
@@ -64,15 +62,16 @@ layui.use(['laydate', 'table'], function () {
         } else if (layEvent === 'del') {
             layer.confirm('真的删除行么', function (index) {
                 // obj.del(); //删除对应行（tr）的DOM结构
-                console.log(data)
                 layer.close(index);
                 //向服务端发送删除指令
                 fengtoos.server({
-                    url: base_path + 'user/del/' + data.id,
+                    url: base_path + 'user/' + data.id,
                     type: 'delete',
                     success: function(resp) {
                         if(resp & resp.success){
                             layer.msg('删除成功', {icon: 1});
+                        } else {
+                            layer.msg(resp.msg, {icon: 2});
                         }
                     }
                 })
@@ -86,7 +85,7 @@ layui.use(['laydate', 'table'], function () {
         fengtoos.server({
             url: base_path + 'user/action/' + obj.value,
             type: 'post',
-            data: obj.elem.checked?2:1,
+            data: {status: obj.elem.checked?2:1},
             success: function(resp){
                 if(resp && resp.success){
                     //发异步，把数据提交给后台
