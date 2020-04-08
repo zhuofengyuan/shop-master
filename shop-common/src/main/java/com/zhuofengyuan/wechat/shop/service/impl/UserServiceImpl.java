@@ -1,19 +1,17 @@
 package com.zhuofengyuan.wechat.shop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.kotlin.KtUpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.mapper.UserMapper;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhuofengyuan.wechat.shop.util.FengtoosUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -26,15 +24,12 @@ import java.io.Serializable;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    @Autowired
-    UserMapper userMapper;
-
     @Override
     public User findByUsername(String username) {
         if(StringUtils.isEmpty(username)){
             return null;
         }
-        return this.userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
+        return this.getBaseMapper().selectOne(new QueryWrapper<User>().eq("username", username));
     }
 
     /**
@@ -50,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new FengtoosException(500, "openid is empty");
         }
 
-        var entity = this.userMapper.selectOne(new QueryWrapper<User>().eq("openid", openid));
+        var entity = this.getBaseMapper().selectOne(new QueryWrapper<User>().eq("openid", openid));
         if(entity == null){
             this.saveOrUpdate(user);
             uid = user.getId();
@@ -80,6 +75,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         var u = new User();
         u.setStatus(status);
         return this.update(u, new QueryWrapper<User>().eq("id", id));
+    }
+
+    @Override
+    public List<User> findByRoleId(String roleId) {
+        if(StringUtils.isEmpty(roleId)){
+            throw new FengtoosException("参数错误！！");
+        }
+        return this.getBaseMapper().findByRoleId(roleId);
     }
 
     @Override

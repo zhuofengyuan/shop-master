@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.controller;
+package com.zhuofengyuan.wechat.shop.admin.task;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-03-06
  */
 @RestController
-@RequestMapping("/province-task")
+@RequestMapping("/task")
 public class ProvinceTaskController {
 
 }

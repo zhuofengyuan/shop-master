@@ -4,6 +4,7 @@ import com.zhuofengyuan.wechat.shop.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -31,4 +32,11 @@ public interface IUserService extends IService<User> {
      * @return
      */
     boolean action(Serializable id, Integer status);
+
+    /**
+     * 根据角色ID获取已绑定的用户
+     * @param roleId
+     * @return
+     */
+    List<User> findByRoleId(String roleId);
 }

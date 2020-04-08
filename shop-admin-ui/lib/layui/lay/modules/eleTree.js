@@ -911,7 +911,7 @@ layui.define(["jquery","laytpl"], function (exports) {
             leafOnly=leafOnly || false;
             includeHalfChecked=includeHalfChecked || false;
             if(leafOnly){
-                el=options.elem.find(".layui-icon.leaf-icon").parent(".eleTree-node-content-icon")
+                el=options.elem. find(".layui-icon.leaf-icon").parent(".eleTree-node-content-icon")
                     .siblings("input.eleTree-hideen[eletree-status='1']");
             }else if(includeHalfChecked){
                 el=options.elem.find("input.eleTree-hideen[eletree-status='1'],input.eleTree-hideen[eletree-status='2']");
@@ -1474,6 +1474,7 @@ layui.define(["jquery","laytpl"], function (exports) {
                     var node=$(that).parent(".eleTree-node");
                     var key=node.data(options.request.key);
                     var isStop=false;
+                    console.log(_self.filter);
                     layui.event.call(node, MOD_NAME, 'nodeRemove('+ _self.filter +')', {
                         node: node,
                         data: nodeData.currentData,

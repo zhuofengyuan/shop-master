@@ -69,6 +69,8 @@ layui.use(['form', 'layer', 'upload'],
                             // 可以对父窗口进行刷新
                             xadmin.father_reload();
                         });
+                    } else {
+                        layer.msg(resp.msg, {icon: 2});
                     }
                 }
             })

@@ -12,8 +12,14 @@
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-                id,
-            openid, name, logo
+                a.id,
+            a.openid, a.name, a.logo
         </sql>
 
+        <select id="findByRoleId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List" />
+            FROM user a
+            WHERE EXISTS ( SELECT 1 FROM user_role r WHERE r.user_id = a.id AND role_id = #{roleId})
+        </select>
 </mapper>

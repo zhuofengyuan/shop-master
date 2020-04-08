@@ -77,4 +77,9 @@ public class UserController {
     public RestResponseBo disable(@PathVariable String id, Integer status){
         return RestResponseBo.normal(this.userService.action(id, status));
     }
+
+    @GetMapping("/role/{id}")
+    public RestResponseBo findByRoleId(@PathVariable String id){
+        return RestResponseBo.ok(this.userService.findByRoleId(id));
+    }
 }

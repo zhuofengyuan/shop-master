@@ -2,7 +2,6 @@ package com.zhuofengyuan.wechat.shop.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author fengtoos
  * @since 2019-06-14
  */
-@Mapper
+//@Mapper
 public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
 
     /**

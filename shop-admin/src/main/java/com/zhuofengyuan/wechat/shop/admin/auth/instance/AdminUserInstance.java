@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.admin.auth.current;
+package com.zhuofengyuan.wechat.shop.admin.auth.instance;
 
 import com.zhuofengyuan.wechat.shop.admin.auth.security.FengtoosSecurityUser;
 import com.zhuofengyuan.wechat.shop.security.SecurityUser;

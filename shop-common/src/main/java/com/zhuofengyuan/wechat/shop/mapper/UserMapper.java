@@ -1,8 +1,9 @@
 package com.zhuofengyuan.wechat.shop.mapper;
 
-import com.zhuofengyuan.wechat.shop.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.zhuofengyuan.wechat.shop.entity.User;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,7 +13,12 @@ import org.apache.ibatis.annotations.Mapper;
  * @author fengtoos
  * @since 2019-06-14
  */
-//@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 根据角色ID获取用户
+     * @param roleId
+     * @return
+     */
+    List<User> findByRoleId(String roleId);
 }

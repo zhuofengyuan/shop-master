@@ -1,6 +1,8 @@
 package com.zhuofengyuan.wechat.shop.service.impl;
 
 import com.zhuofengyuan.wechat.shop.entity.Authorization;
+import com.zhuofengyuan.wechat.shop.entity.ProductCategory;
+import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.mapper.AuthorizationMapper;
 import com.zhuofengyuan.wechat.shop.service.IAuthorizationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -31,5 +33,47 @@ public class AuthorizationServiceImpl extends ServiceImpl<AuthorizationMapper, A
             return Collections.emptyList();
         }
         return this.authorizationMapper.selectByUserId(id);
+    }
+
+    @Override
+    public List<Authorization> findTree(String pid) {
+        if("all".equals(pid)){
+            return this.authorizationMapper.selectAllTree();
+        }
+
+        if (StringUtils.isEmpty(pid)){
+            return this.authorizationMapper.selectTree();
+        } else {
+            return this.authorizationMapper.selectTreeByParent(pid);
+        }
+    }
+
+    @Override
+    public boolean saveOrUpdate(Authorization entity) {
+        String parentId = entity.getParent();
+        if(StringUtils.isEmpty(parentId)){
+            entity.setParent(null);
+        }
+
+        if(1 == entity.getStatus()){
+            entity.setIsLeaf(true);
+        } else {
+            entity.setIsLeaf(false);
+        }
+
+        if(StringUtils.isEmpty(entity.getIcon())){
+            entity.setIcon("layui-icon-form");
+        }
+
+        super.saveOrUpdate(entity);
+        if(StringUtils.isNotEmpty(parentId)){
+            var parent = this.getById(parentId);
+            entity.setPath(String.format("%s%s,", parent.getPath(), entity.getId()));
+            entity.setLevel(parent.getLevel() + 1);
+        } else {
+            entity.setPath(String.format("%s,", entity.getId()));
+            entity.setLevel(1);
+        }
+        return this.updateById(entity);
     }
 }

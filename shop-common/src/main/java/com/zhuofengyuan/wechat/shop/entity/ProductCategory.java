@@ -24,6 +24,7 @@ public class ProductCategory {
     private Integer sortOrder;
     private String path;
     private Boolean isLeaf;
+    private String description;
     @TableField(exist = false)
     private List<ProductCategory> children;
 }

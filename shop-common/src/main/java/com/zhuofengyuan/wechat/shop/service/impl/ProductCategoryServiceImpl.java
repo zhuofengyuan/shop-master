@@ -45,7 +45,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
 
         super.save(entity);
         var parent = this.getById(parentId);
-        entity.setPath(String.format("%s%s.", parent.getPath(), entity.getId()));
+        entity.setPath(String.format("%s%s,", parent.getPath(), entity.getId()));
         return this.updateById(entity);
     }
 }

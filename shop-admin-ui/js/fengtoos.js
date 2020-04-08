@@ -161,6 +161,22 @@ window.fengtoos = {
             }
         }
     },
+    initTreeForm: function(params){
+        var _params = {form: "", fields: {}}
+        params = $.extend({}, _params, params);
+        $.map($(params.formId).serializeArray(), function (item, index) {
+            $(params.formId + ' #' + item.name).val(_params.fields[item.name]);
+        });
+    },
+
+    getQueryString: function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    },
 
     /**
      * 初始化表单数据(根据表单id)
@@ -265,7 +281,7 @@ window.fengtoos = {
                 }else if((status == 401 || status == 403) && $.trim(params.urlType) == "AAD"){
                     //重新刷新权限
                     fengtoos.server({
-                        url: base_path + 'wechat/principal',
+                        url: base_path + 'auth/principal',
                         type: 'get',
                         success: function(r){
                             saveUser(r);

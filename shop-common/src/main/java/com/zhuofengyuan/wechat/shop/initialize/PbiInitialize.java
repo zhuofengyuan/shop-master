@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhuofengyuan.wechat.shop.prop.PbiSettings;
 import com.zhuofengyuan.wechat.shop.service.IProvinceTaskService;
-import com.zhuofengyuan.wechat.shop.util.ExcelTest;
 import com.zhuofengyuan.wechat.shop.util.PbiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
+//@Component
 public class PbiInitialize implements CommandLineRunner {
 
     @Autowired
