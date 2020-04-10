@@ -23,7 +23,7 @@ public class UserRole implements Serializable {
 
     private String userId;
 
-    private Long roleId;
+    private String roleId;
 
 
 }

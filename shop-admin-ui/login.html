@@ -92,7 +92,7 @@
                                 content: '登录成功', go: function () {
 
                                     fengtoos.server({
-                                        url: oauth_server + 'wechat/principal',
+                                        url: oauth_server + 'auth/principal',
                                         type: 'get',
                                         success: function (result) {
                                             if(result){

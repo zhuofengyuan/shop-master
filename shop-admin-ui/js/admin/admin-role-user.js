@@ -5,51 +5,77 @@ layui.use(['form', 'layer', 'eleTree', 'transfer'],
             transfer = layui.transfer,
             layer = layui.layer;
 
-        fengtoos.server({
-            url: base_path + "user/role/" + fengtoos.getQueryString("id"),
-            type: 'get',
-            success : function(resp) {
-                if(resp && resp.success){
-                    console.log(resp.payload)
-                } else {
-                    layer.msg(resp.msg, {icon: 2});
+        var getValueList = function(){
+            let org = [];
+            fengtoos.server({
+                url: base_path + "user/role/" + fengtoos.getQueryString("id"),
+                type: 'get',
+                async : false,
+                success : function(resp) {
+                    if(resp && resp.success){
+                        for(let i in resp.payload){
+                            org.push(resp.payload[i].id)
+                        }
+                    } else {
+                        layer.msg(resp.msg, {icon: 2});
+                    }
                 }
-            }
-        })
+            })
+            return org;
+        }
+
+        var getUserList = function(){
+            let val = null;
+            fengtoos.server({
+                url:base_path + 'user/list',
+                data: {page: 0, limit: 10000},
+                type: 'get',
+                success: function(resp) {
+                    if (resp && resp.success) {
+                        val = resp.payload.records
+                    } else {
+                        layer.msg(resp.msg, {icon : 2})
+                    }
+                }
+            })
+            return val;
+        }
 
         //渲染
         transfer.render({
             elem: '#transfer'  //绑定元素
-            ,data: [
-                {"value": "1", "title": "<img class='layui-nav-img' src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIyQtWHp6QmEX5YHtPv8sFCubCnzyC7u6VN7JT2naMCIulXqsbhlG3ZicjTDSzabIuiaVEsNb5Iibesg/132' />李白", "disabled": "", "checked": ""}
-                ,{"value": "2", "title": "杜甫", "disabled": "", "checked": ""}
-                ,{"value": "3", "title": "贤心", "disabled": "", "checked": ""}
-            ]
-            ,value: ["3"]
+            ,data: getUserList()
+            ,value: getValueList()
             ,title: ["可分配用户", "已分配用户"]
             ,showSearch: true
             ,text: {
                 none: '无数据' //没有数据时的文案
                 ,searchNone: '无匹配数据' //搜索无匹配数据时的文案
             }
-            ,id: 'demo1' //定义索引
+            ,id: 'roleuser' //定义索引
+            ,parseData: function(res){
+                return {
+                    "value": res.id //数据值
+                    ,"title": "<img class='layui-nav-img' src='" + image_path + res.logo + "'>" + res.name //数据标题
+                    ,"disabled": res.disabled  //是否禁用
+                    ,"checked": res.checked //是否选中
+                }
+            }
         });
 
 
         //监听提交
         form.on('submit(add)', function(data) {
-            delete data.field["eleTree-node"];
             //权限项
-            let auths = el.getChecked(true, false);
-            for(let i in auths){
-                delete auths[i]["elem"];
-                delete auths[i]["othis"];
+            let users = transfer.getData('roleuser');
+            let ids = [];
+            for(var i in users){
+                ids.push({userId: users[i].value, roleId: fengtoos.getQueryString("id")});
             }
 
-            data.field.authorizations = auths;
             fengtoos.server({
-                url: base_path + 'role/add',
-                data: JSON.stringify(data.field),
+                url: base_path + 'role/add/user',
+                data: JSON.stringify(ids),
                 contentType: 'application/json',
                 success: function(resp){
                     if(resp && resp.success){

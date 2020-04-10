@@ -13,6 +13,7 @@ layui.use(['laydate', 'table'], function () {
     laydate.render({
         elem: '#end' //指定元素
     });
+
     //执行一个 table 实例
     let userTable = table.render({
         elem: '#admin_table'
@@ -53,11 +54,10 @@ layui.use(['laydate', 'table'], function () {
         var data = obj.data //获得当前行数据
             , layEvent = obj.event; //获得 lay-event 对应的值
         if (layEvent === 'detail') {
-            xadmin.open('编辑用户','./admin-role-user.html?id=' + data.id,520,520)
+            xadmin.open('分配用户','./admin-role-user.html?id=' + data.id,520,520)
         } else if (layEvent === 'del') {
             layer.confirm('真的删除行么', function (index) {
                 // obj.del(); //删除对应行（tr）的DOM结构
-                layer.close(index);
                 //向服务端发送删除指令
                 fengtoos.server({
                     url: base_path + 'role/' + data.id,
@@ -68,6 +68,7 @@ layui.use(['laydate', 'table'], function () {
                         } else {
                             layer.msg(resp.msg, {icon: 2});
                         }
+                        layer.close(index);
                     }
                 })
             });

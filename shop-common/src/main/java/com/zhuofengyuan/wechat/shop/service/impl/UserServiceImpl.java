@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Serializable findWxUser(User user) {
         String openid = user.getOpenid();
-        Long uid = 0L;
+        String uid = null;
         if(StringUtils.isEmpty(openid)){
             throw new FengtoosException(500, "openid is empty");
         }

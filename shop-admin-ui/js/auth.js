@@ -1,7 +1,8 @@
 // var base_path = 'http://zm.zsmls.com/';
 var base_path = 'http://localhost:8080/';
 var ittun_path = 'http://fengtoos.ittun.com/';
-var image_path = base_path + 'admin/file/';
+var image_path = base_path + 'file/image/';
+var upload_path = base_path + 'file'
 var oauth_server = base_path;
 var redirect_uri = base_path + 'view/index';
 var client_id = 'client_2';
@@ -10,17 +11,6 @@ var token_storage = localStorage;//sessionStorage
 
 if (getAuth() == null && !window.location.href.endsWith('/login.html')) {
     window.top.location.href = 'login.html'
-}
-
-function ajaxSetup() {
-    $.ajaxSetup({
-        timeout: 30000,
-        complete: function (xhr, ts) {
-            if (xhr.status == 401 && xhr.responseJSON.error == 'invalid_token') {
-                refreshToken();
-            }
-        }
-    });
 }
 
 function getToken() {
@@ -118,7 +108,7 @@ function refreshToken() {
     });
 
     fengtoos.server({
-        url: oauth_server + 'wechat/principal',
+        url: oauth_server + 'auth/principal',
         type: 'get',
         success: function (result) {
             if(result){
@@ -143,8 +133,3 @@ function checkToken() {
         }
     });
 }
-
-
-$(function () {
-    ajaxSetup();
-});

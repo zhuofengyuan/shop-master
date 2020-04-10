@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class Authorization {
     private String id;
     private String code;
     private String name;
-    private Integer status;
+    private Integer status; /** 0为普通菜单，1为跟菜单，2为权限项 */
     private Integer level;
     @TableField(exist = false)
     private String parentName;
@@ -26,7 +27,10 @@ public class Authorization {
     private String parent;
     private String description;
     private String url;
+    private String authurl;
     private String icon;
     @TableField(exist = false)
-    private List<Authorization> children;
+    private boolean menu = false;
+    @TableField(exist = false)
+    private List<Authorization> children = new ArrayList<>();
 }

@@ -21,7 +21,7 @@ public interface IAuthorizationService extends IService<Authorization> {
      * @param id
      * @return
      */
-    List<Authorization> selectByUserId(Long id);
+    List<Authorization> selectByUserId(String id);
 
     /**
      * 根据父ID获取下一级树结构
@@ -29,4 +29,9 @@ public interface IAuthorizationService extends IService<Authorization> {
      * @return
      */
     List<Authorization> findTree(String pid);
+
+    /**
+     * 获取用户菜单
+     */
+    List<Authorization> getMenus(String userid);
 }

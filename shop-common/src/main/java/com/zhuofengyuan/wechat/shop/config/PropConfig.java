@@ -1,5 +1,6 @@
 package com.zhuofengyuan.wechat.shop.config;
 
+import com.zhuofengyuan.wechat.shop.prop.IgnoreUrlSettings;
 import com.zhuofengyuan.wechat.shop.prop.PbiSettings;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
@@ -32,5 +33,11 @@ public class PropConfig {
     @ConfigurationProperties(prefix = "pbi")
     public PbiSettings getPbiSettings(){
         return new PbiSettings();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "fengtoos.ignore")
+    public IgnoreUrlSettings getFengtoosSettings(){
+        return new IgnoreUrlSettings();
     }
 }

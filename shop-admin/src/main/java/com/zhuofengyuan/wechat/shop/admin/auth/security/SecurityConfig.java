@@ -13,9 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * Spring-Security 配置<br>
@@ -36,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     FengtoosUserDetailsService fengtoosUserDetailsService;
     @Autowired
     LoginAuthenticationProcider loginAuthenticationProcider;
+    @Autowired
+    private MyAccessDecisionManager myAccessDecisionManager;// 自定义决策管理器
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -69,10 +69,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
+        // 将自定义的过滤器配置在FilterSecurityInterceptor之前
+        http.addFilterBefore(myFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
 //        http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
 //        http.formLogin().loginPage("/login").failureUrl("/login?code=").permitAll();
 //        http.logout().permitAll();
 //        http.authorizeRequests().antMatchers("/oauth/authorize").permitAll();
+    }
+
+    /**
+     * 管理自定义的权限过滤器
+     */
+    @Bean
+    public MyFilterSecurityInterceptor myFilterSecurityInterceptor() {
+        MyFilterSecurityInterceptor myFilterSecurityInterceptor = new MyFilterSecurityInterceptor();
+        myFilterSecurityInterceptor.setMyAccessDecisionManager(myAccessDecisionManager);
+        return myFilterSecurityInterceptor;
     }
 
     /**
@@ -96,31 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("123456"));
+        System.out.println(encoder.matches("123456", encoder.encode("123456")));
     }
 
-//    @Bean
-    public CorsWebFilter corsWebFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
-        // 允许cookies跨域
-        config.setAllowCredentials(true);
-        // #允许向该服务器提交请求的URI，*表示全部允许，在SpringMVC中，如果设成*，会自动转成当前请求头中的Origin
-        config.addAllowedOrigin("*");
-        // #允许访问的头信息,*表示全部
-        config.addAllowedHeader("*");
-        // 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
-        config.setMaxAge(18000L);
-        // 允许提交请求的方法，*表示全部允许
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        // 允许Get的请求方法
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsWebFilter(source);
-    }
 }

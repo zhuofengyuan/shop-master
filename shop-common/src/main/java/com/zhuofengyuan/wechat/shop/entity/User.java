@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @TableId(type = IdType.NONE)
-    private Long id;
+    private String id;
     private String openid;
     private String name;
     private String logo;

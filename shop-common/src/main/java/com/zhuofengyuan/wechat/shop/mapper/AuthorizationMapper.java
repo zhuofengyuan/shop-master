@@ -23,7 +23,7 @@ public interface AuthorizationMapper extends BaseMapper<Authorization> {
      * @param userId
      * @return
      */
-    List<Authorization> selectByUserId(@Param("userId") Long userId);
+    List<Authorization> selectByUserId(@Param("userId") String userId);
 
     /**
      * 查找树结构
@@ -50,4 +50,5 @@ public interface AuthorizationMapper extends BaseMapper<Authorization> {
      * @return
      */
     List<Authorization> findByRoleId(String roleId);
+
 }

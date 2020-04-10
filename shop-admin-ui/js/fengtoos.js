@@ -169,8 +169,8 @@ window.fengtoos = {
         });
     },
 
-    getQueryString: function(name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    getQueryString: function(propname) {
+        var reg = new RegExp('(^|&)' + propname + '=([^&]*)(&|$)', 'i');
         var r = window.location.search.substr(1).match(reg);
         if (r != null) {
             return unescape(r[2]);
@@ -276,7 +276,7 @@ window.fengtoos = {
                 }
 
                 var status = parseInt(XMLHttpRequest.status);
-                if(status == 401 && XMLHttpRequest.responseJSON.error =='invalid_token'){
+                if(XMLHttpRequest.responseJSON == undefined || (status == 401 && XMLHttpRequest.responseJSON.error =='invalid_token')){
                     refreshToken();
                 }else if((status == 401 || status == 403) && $.trim(params.urlType) == "AAD"){
                     //重新刷新权限
@@ -287,13 +287,13 @@ window.fengtoos = {
                             saveUser(r);
                         }
                     })
-
-                    if (params.ajaxCount <= 1) {
-                        //自身调用,有且只调用一次
-                        _selfFn(params);
-                    }
                 } else {
-                    fengtoos.msg({content: XMLHttpRequest.responseJSON.message, icon: 2})
+                    fengtoos.msg({content: XMLHttpRequest.responseJSON.error, icon: 2})
+                }
+
+                if (params.ajaxCount <= 1) {
+                    //自身调用,有且只调用一次
+                    _selfFn(params);
                 }
             }
         });

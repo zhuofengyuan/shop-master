@@ -24,7 +24,7 @@ import java.nio.file.Paths;
  * @since 2019-08-27
  */
 @RestController
-@RequestMapping("/admin/file")
+@RequestMapping("/file")
 public class FileController {
 
     @Autowired
@@ -49,7 +49,7 @@ public class FileController {
      * @return
      * @throws IOException
      */
-    @GetMapping(value = "/{id}", produces = {MediaType.IMAGE_JPEG_VALUE})
+    @GetMapping(value = "/image/{id}", produces = {MediaType.IMAGE_JPEG_VALUE})
     public void download(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
         var entity = this.fileService.getById(id);
         var file = new File(Paths.get(entity.getPath()).toUri());

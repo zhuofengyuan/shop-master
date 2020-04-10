@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
  * OAuth 授权服务器配置
  * https://segmentfault.com/a/1190000014371789
  *
- * @author wunaozai
- * @date 2018-05-29
+ * @author fengtoos
+ * @date 2019-05-29
  */
 @Configuration
 @EnableAuthorizationServer
@@ -52,6 +52,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .scopes("select")
                 .authorities("oauth2")
                 .secret(finalSecret)
+                .accessTokenValiditySeconds(1200)
+                .refreshTokenValiditySeconds(50000)
                 .and()
                 .withClient("client_2")
                 //.resourceIds(DEMO_RESOURCE_ID)
@@ -77,6 +79,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .exceptionTranslator(new FengtoosWebExceptionTranslator())
                 .tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .authenticationManager(authenticationManager)
+//                .setClientDetailsService()
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 
         //配置TokenService参数
@@ -85,8 +88,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         tokenService.setSupportRefreshToken(true);
         tokenService.setClientDetailsService(endpoints.getClientDetailsService());
         tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenService.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); //30天
-        tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(50)); //50天
+        tokenService.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(8)); //30天
+        tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(2)); //50天
         tokenService.setReuseRefreshToken(false);
         endpoints.tokenServices(tokenService);
 

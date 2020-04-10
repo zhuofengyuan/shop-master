@@ -76,7 +76,7 @@
     function refreshToken(){
         fengtoos.server({
             urlType: "AAD",
-            url: pbiGroupEmbedToken,
+            url: pbiGroupEmbedToken + reportId + "/GenerateToken",
             async: true,
             data: {
                 accessLevel: "View"
@@ -87,16 +87,17 @@
         })
     }
 
+    var reportId = fengtoos.getQueryString("report");//"fddcd03a-d3cb-402c-81a6-bc80d0ec4c96"
     fengtoos.server({
         urlType: "AAD",
-        url: pbiYearEmbedToken,
+        url: pbiBaseEmbedToken + reportId + "/GenerateToken",
         async: true,
         data: {
             accessLevel: "View"
         },
         success: function(rs){
             let token = rs.token;
-            loadReport(token, "fddcd03a-d3cb-402c-81a6-bc80d0ec4c96", "https://app.powerbi.com/reportEmbed?reportId=fddcd03a-d3cb-402c-81a6-bc80d0ec4c96")
+            loadReport(token, reportId, "https://app.powerbi.com/reportEmbed?reportId=" + reportId)
         }
     })
 

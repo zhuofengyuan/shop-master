@@ -28,7 +28,7 @@ public class AuthorizationServiceImpl extends ServiceImpl<AuthorizationMapper, A
     AuthorizationMapper authorizationMapper;
 
     @Override
-    public List<Authorization> selectByUserId(Long id) {
+    public List<Authorization> selectByUserId(String id) {
         if(id == null){
             return Collections.emptyList();
         }
@@ -45,6 +45,30 @@ public class AuthorizationServiceImpl extends ServiceImpl<AuthorizationMapper, A
             return this.authorizationMapper.selectTree();
         } else {
             return this.authorizationMapper.selectTreeByParent(pid);
+        }
+    }
+
+    @Override
+    public List<Authorization> getMenus(String userid) {
+        List<Authorization> auths = this.selectByUserId(userid);
+        List<Authorization> rs = this.getBaseMapper().selectAllTree();
+        for(Authorization item : auths){
+            setMenu(item.getPath(), rs);
+        }
+        return rs;
+    }
+
+    /**
+     * 递归设置菜单
+     * @param code
+     * @param list
+     */
+    private void setMenu(String code, List<Authorization> list){
+        for(Authorization item : list){
+            if(!item.isMenu()){
+                item.setMenu(code.contains(item.getId())&&item.getStatus()!=2);
+            }
+            setMenu(code, item.getChildren());
         }
     }
 

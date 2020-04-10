@@ -11,7 +11,7 @@ public class SecurityUser implements Serializable {
 
     private static final long serialVersionUID = 3945179659081211914L;
 
-    public SecurityUser(Long id, String nickName, String loginName, String loginPwd, String logo){
+    public SecurityUser(String id, String nickName, String loginName, String loginPwd, String logo){
         this.id = id;
         this.nickName = nickName;
         this.loginName = loginName;
@@ -19,7 +19,7 @@ public class SecurityUser implements Serializable {
         this.logo = logo;
     }
 
-    private Long id;
+    private String id;
 
     private String nickName;
 

@@ -23,7 +23,7 @@ public class File implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.NONE)
-    private Long id;
+    private String id;
 
     private String path;
 
@@ -31,7 +31,7 @@ public class File implements Serializable {
 
     private Integer type;
 
-    private Long createUser;
+    private String createUser;
 
     private Date createTime;
 }

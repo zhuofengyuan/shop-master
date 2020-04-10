@@ -2,6 +2,7 @@ package com.zhuofengyuan.wechat.shop.admin.auth.security;
 
 import com.zhuofengyuan.wechat.shop.security.SecurityUser;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.util.Collection;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class FengtoosSecurityUser extends SecurityUser implements Serializable, UserDetails {
@@ -20,7 +22,7 @@ public class FengtoosSecurityUser extends SecurityUser implements Serializable, 
     /** pbi的AADToken */
     private String pbiAADToken;
 
-    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, Long id, String nickName, String loginName, String loginPwd, String logo, String aadToken) {
+    public FengtoosSecurityUser(Collection<GrantedAuthority> authorities, String id, String nickName, String loginName, String loginPwd, String logo, String aadToken) {
         super(id, nickName, loginName, loginPwd, logo);
         this.authorities = authorities;
         this.pbiAADToken = aadToken;

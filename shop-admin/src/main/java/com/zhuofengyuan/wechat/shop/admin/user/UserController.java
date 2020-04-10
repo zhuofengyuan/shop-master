@@ -3,6 +3,7 @@ import	java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.User;
+import com.zhuofengyuan.wechat.shop.exception.FengtoosException;
 import com.zhuofengyuan.wechat.shop.prop.WechatSettings;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IUserService;
@@ -81,5 +82,32 @@ public class UserController {
     @GetMapping("/role/{id}")
     public RestResponseBo findByRoleId(@PathVariable String id){
         return RestResponseBo.ok(this.userService.findByRoleId(id));
+    }
+
+    /**
+     * 重置密码
+     * @param id
+     * @param orgpass  旧密码
+     * @param password 新密码
+     * @return
+     */
+    @PostMapping("/reset/{id}")
+    public RestResponseBo reset(@PathVariable String id, String orgpass, String password){
+        if(StringUtils.isEmpty(orgpass) || StringUtils.isEmpty(password)){
+            throw new FengtoosException("密码不能为空");
+        }
+
+        var user = this.userService.getById(id);
+        if(user == null){
+            throw new FengtoosException("用户不存在");
+        }
+
+        boolean flag = this.encoder.matches(orgpass, user.getPassword());
+        if(!flag){
+            throw new FengtoosException("用户旧密码错误");
+        }
+
+        user.setPassword(this.encoder.encode(password));
+        return RestResponseBo.normal(this.userService.updateById(user));
     }
 }

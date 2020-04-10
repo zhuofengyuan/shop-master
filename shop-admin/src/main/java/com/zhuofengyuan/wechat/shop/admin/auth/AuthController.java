@@ -40,4 +40,9 @@ public class AuthController {
     public RestResponseBo delete(@PathVariable String id){
         return RestResponseBo.normal(this.authorizationService.removeById(id));
     }
+
+    @GetMapping("/menu/{id}")
+    public RestResponseBo menu(@PathVariable String id){
+        return RestResponseBo.ok(this.authorizationService.getMenus(id));
+    }
 }

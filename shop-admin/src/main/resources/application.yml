@@ -7,6 +7,11 @@ fengtoos:
   default:
     avaterUrl: http://zm.zsmls.com/images/favicon.ico
     dateFmt: yyyy-MM-dd HH:mm:ss
+  ignore:
+    urls:
+      - /oauth/
+      - /file/image
+      - /auth/principal
 
 spring:
   application:

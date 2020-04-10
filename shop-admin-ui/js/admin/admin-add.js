@@ -8,7 +8,7 @@ layui.use(['form', 'layer', 'upload'],
         //普通图片上传
         let uploadInst = upload.render({
             elem: '#logo'
-            ,url: base_path + 'admin/file' //改成您自己的上传接口
+            ,url: upload_path //改成您自己的上传接口
             ,auto: true
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
@@ -17,7 +17,6 @@ layui.use(['form', 'layer', 'upload'],
                 });
             }
             ,done: function(res){
-                console.log(res)
                 //如果上传失败
                 if(!res.success){
                     return layer.msg('上传失败');
@@ -52,7 +51,6 @@ layui.use(['form', 'layer', 'upload'],
 
         //监听提交
         form.on('submit(add)', function(data) {
-            console.log(data);
             delete data.field.file;
             fengtoos.server({
                 url: base_path + 'user/add',

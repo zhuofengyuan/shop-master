@@ -2,10 +2,14 @@ package com.zhuofengyuan.wechat.shop.admin.auth;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.Role;
+import com.zhuofengyuan.wechat.shop.entity.UserRole;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IRoleService;
+import com.zhuofengyuan.wechat.shop.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,6 +25,8 @@ public class RoleController {
 
     @Autowired
     IRoleService roleService;
+    @Autowired
+    IUserRoleService userRoleService;
 
     @GetMapping("/{id}")
     public RestResponseBo findOne(@PathVariable String id){
@@ -47,5 +53,10 @@ public class RoleController {
     @DeleteMapping("/{id}")
     public RestResponseBo delete(@PathVariable String id){
         return RestResponseBo.normal(this.roleService.removeById(id));
+    }
+
+    @PostMapping("/add/user")
+    public RestResponseBo addUser(@RequestBody List<UserRole> data){
+        return RestResponseBo.normal(this.userRoleService.saveBatch(data));
     }
 }

@@ -117,17 +117,21 @@ layui.use(['form', 'eleTree', 'layer'], function () {
     //删除事件
     eleTree.on("nodeDelete(tree)",function(d) {
         layer.confirm('真的删除行么', function (index) {
-            layer.close(index);
             //向服务端发送删除指令
             fengtoos.server({
                 url: base_path + 'auth/' + d.data.id,
                 type: 'delete',
                 success: function(resp) {
-                    if(resp & resp.success){
-                        layer.msg('删除成功', {icon: 1});
+                    console.log(resp)
+                    if(resp && resp.success){
+                        layer.alert("删除成功", {icon: 6}, function(index) {
+                            el = el.reload();
+                            layer.close(index);
+                        });
                     } else {
                         layer.msg(resp.msg, {icon: 2});
                     }
+                    layer.close(index);
                 }
             })
         });
@@ -150,7 +154,6 @@ layui.use(['form', 'eleTree', 'layer'], function () {
 
     //监听提交
     form.on('submit(submit)', function(data) {
-        console.log(data.field);
         fengtoos.server({
             url: base_path + 'auth/add',
             data: JSON.stringify(data.field),
