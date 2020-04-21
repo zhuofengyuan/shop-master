@@ -25,7 +25,7 @@
         <script>
             // 是否开启刷新记忆tab功能
             var is_remember = false;
-            $(function () {
+            layui.use(['form', 'layer'], function () {
                $("#user-name").html(function(){
                    var str = '<img class="layui-nav-img" src="' + image_path + getUser().principal.logo + '">' + getUser().principal.nickName;
                    return str;

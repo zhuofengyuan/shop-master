@@ -1,5 +1,5 @@
-// var base_path = 'http://zm.zsmls.com/';
-var base_path = 'http://localhost:8080/';
+var base_path = 'http://zm.zsmls.com/';
+// var base_path = 'http://localhost:8080/';
 var ittun_path = 'http://fengtoos.ittun.com/';
 var image_path = base_path + 'file/image/';
 var upload_path = base_path + 'file'
@@ -79,7 +79,6 @@ function fetchToken() {
         },
         success: function (sResponse) {
             saveAuth(sResponse);
-            console.log('fetch_token ok: ' + sResponse.access_token + '  expires_in:' + sResponse.expires_in);
             //window.location.href = redirect_uri;
         },
         error: function (a, b, c) {
@@ -104,6 +103,11 @@ function refreshToken() {
         success: function (sResponse) {
             saveAuth(sResponse);
             console.log('refresh_token ok: ' + sResponse.access_token + '  expires_in:' + sResponse.expires_in);
+        },
+        error: function(){
+            clearAuth()
+            clearUser()
+            window.location.href = base_path
         }
     });
 

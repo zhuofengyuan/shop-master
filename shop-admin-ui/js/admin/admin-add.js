@@ -10,6 +10,7 @@ layui.use(['form', 'layer', 'upload'],
             elem: '#logo'
             ,url: upload_path //改成您自己的上传接口
             ,auto: true
+            ,headers:  getToken()
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){

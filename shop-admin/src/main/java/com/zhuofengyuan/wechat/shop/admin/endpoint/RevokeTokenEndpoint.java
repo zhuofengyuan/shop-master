@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -38,9 +39,10 @@ public class RevokeTokenEndpoint {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     @ResponseBody
-    public void index(HttpServletResponse response) throws ServletException, IOException {
-        if("prod".equalsIgnoreCase(active)){
-            response.sendRedirect("http://zm.zsmls.com/index.html");
-        }
+    public void index(HttpServletResponse response) throws IOException {
+//        if("prod".equalsIgnoreCase(active)){
+            response.setContentType("text/html; charset=UTF-8");
+            response.getWriter().print("<html><script>window.location.href='http://zm.zsmls.com/index.html'</script></html>");
+//        }
     }
 }

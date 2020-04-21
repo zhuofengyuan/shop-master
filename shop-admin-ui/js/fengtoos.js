@@ -288,7 +288,11 @@ window.fengtoos = {
                         }
                     })
                 } else {
-                    fengtoos.msg({content: XMLHttpRequest.responseJSON.error, icon: 2})
+                    console.log(XMLHttpRequest)
+                    fengtoos.msg({
+                        content: XMLHttpRequest.responseJSON.message?XMLHttpRequest.responseJSON.message:XMLHttpRequest.responseJSON.error,
+                        icon: 2
+                    })
                 }
 
                 if (params.ajaxCount <= 1) {

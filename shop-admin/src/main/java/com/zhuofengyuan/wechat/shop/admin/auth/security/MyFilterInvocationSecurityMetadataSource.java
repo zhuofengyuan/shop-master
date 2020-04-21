@@ -4,14 +4,14 @@ import com.zhuofengyuan.wechat.shop.prop.IgnoreUrlSettings;
 import com.zhuofengyuan.wechat.shop.service.IAuthorizationService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +26,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
      * 加载资源，初始化资源变量
      */
     public Collection<ConfigAttribute> getAuthByUrl(String url) {
-        var r = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object r = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(r instanceof FengtoosSecurityUser){
             return this.authorizationService.selectByUserId(((FengtoosSecurityUser) r).getId())
                     .stream()
@@ -46,6 +46,9 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
             return null;
         }
         String url = fi.getRequestUrl();
+        if("/".equals(url)){
+            return null;
+        }
 
         //过滤自定义不需要验证的URL
         var urls = this.ignoreUrlSettings.getUrls();
