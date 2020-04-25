@@ -1,6 +1,6 @@
 var base_path = 'http://zm.zsmls.com/';
 // var base_path = 'http://localhost:8080/';
-var ittun_path = 'http://fengtoos.ittun.com/';
+// var ittun_path = 'http://fengtoos.ittun.com/';
 var image_path = base_path + 'file/image/';
 var upload_path = base_path + 'file'
 var oauth_server = base_path;

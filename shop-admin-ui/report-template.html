@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="./css/report.css">
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
@@ -23,19 +24,54 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<style>
-    #reportContainer {
-        position:absolute;
-        top: 0;
-        bottom:0;
-        left:0;
-        right:0;
-    }
-</style>
 <body>
+    <blockquote class="layui-elem-quote" id="bar">
+        <a href="javascript:open();" class="layui-btn report-btn"><i class="layui-icon layui-icon-cols"></i>字段说明</a>
+        <span class="layui-word-aux" style="float: right" id="test4"></span>
+        <span class="layui-word-aux" style="float: right" id="test3">最后更新时间：</span>
+    </blockquote>
     <div id="reportContainer"></div>
 </body>
 <script>
+
+    layui.use(['util'], function(){
+        var util = layui.util,
+            $ = layui.$;
+
+        //倒计时
+        var thisTimer, setCountdown = function(y, M, d, H, m, s){
+            var endTime = new Date(y, M||0, d||1, H||0, m||0, s||0) //结束日期
+                ,serverTime = new Date(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+
+            clearTimeout(thisTimer);
+            util.countdown(endTime, serverTime, function(date, serverTime, timer){
+                let d = new Date();
+                let hour = d.getHours();
+                let minute = d.getMinutes();
+                if(hour < 7){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1, 14, 30, 0);
+                } else if(hour == 7 && m < 30){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1, 14, 30, 0);
+                } else if(hour == 7 && m > 30){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
+                } else if(hour > 7 && hour < 14){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
+                } else if(hour == 14 && m < 30){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
+                } else if(hour == 14 && m > 30){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 14, 30, 0);
+                } else if(hour > 14){
+                    d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 14, 30, 0);
+                }
+
+                var str = util.timeAgo(d.getTime());
+                $('#test4').html(str);
+                thisTimer = timer;
+            });
+        };
+        setCountdown(2099,1,1);
+    })
+
     var $report;
     function loadReport(accessToken, embedReportId, embedUrl){
 
@@ -87,7 +123,7 @@
         })
     }
 
-    var reportId = fengtoos.getQueryString("report");//"fddcd03a-d3cb-402c-81a6-bc80d0ec4c96"
+    var reportId = fengtoos.getQueryString("report");
     fengtoos.server({
         urlType: "AAD",
         url: pbiBaseEmbedToken + reportId + "/GenerateToken",
@@ -101,6 +137,41 @@
         }
     })
 
+    /*fengtoos.server({
+        urlType: "AAD",
+        // url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/datasets/c79b5056-8928-4cfc-a32d-878f8bfc1b70/refreshes",
+        url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/datasets/c79b5056-8928-4cfc-a32d-878f8bfc1b70/Default.DiscoverGateways",
+        async: true,
+        success: function (rs) {
+            console.log(rs);
+        }
+    })*/
+
+    function open(){
+        var that = this;
+        //多窗口模式，层叠置顶
+        layer.open({
+            type: 2 //此处以iframe举例
+            ,title: '字段描述'
+            ,area: ['700px', '500px']
+            ,shade: 0
+            ,maxmin: true
+            ,offset: [ //为了演示，随机坐标
+                $(window).height()*0.25
+                ,$(window).width()*0.25
+            ]
+            ,content: './report-tips.html'
+            ,btn: ['关闭'] //只是为了演示
+            ,btn2: function(){
+                layer.closeAll();
+            }
+
+            ,zIndex: layer.zIndex //重点1
+            ,success: function(layero){
+                layer.setTop(layero); //重点2
+            }
+        });
+    }
 
     // Refresh the token
     setInterval('refreshToken()', 3500000);

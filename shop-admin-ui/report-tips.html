@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <style>
+        .font-red{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="150">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>字段类型</th>
+        <th>描述</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>出货额，订单金额等取值说明</td>
+        <td>所有报表出货额，订单金额等都均取EAS系统的<span class="font-red">含税金额（价税合计）</span></td>
+    </tr>
+    <tr>
+        <td>海外事业部，大客户部省份数据</td>
+        <td>因为海外事业部，大客户部IT拿到的<span class="font-red">销售任务均是按月份划分</span>，故无省份任务信息</td>
+    </tr>
+    <tr>
+        <td>本年订单累计金额</td>
+        <td>本年<span class="font-red">（2020年从1月1日至今）</span>的所有销售订单实际订单价税合计总和<span class="font-red">（不包括手工关闭未出货数量）</span></td>
+    </tr>
+    <tr>
+        <td>所有订单未交货金额</td>
+        <td>所有<span class="font-red">（EAS系统所有未关闭状态）</span>销售订单</td>
+    </tr>
+    <tr>
+        <td>(空白)</td>
+        <td>若显示(空白)<span class="font-red">则该数据对应的维护无维护数据</span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

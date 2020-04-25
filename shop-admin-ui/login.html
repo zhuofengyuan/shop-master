@@ -106,10 +106,12 @@
                             })
                         } else {
                             fengtoos.msg({content: '用户名或密码错误', icon: 2})
+                            verifyCode.refresh();
                         }
                     },
                     error: function(result){
                         fengtoos.msg({content: '用户名或密码错误', icon: 2})
+                        verifyCode.refresh();
                     }
                 });
                 return false;
