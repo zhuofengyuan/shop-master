@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @Author 【swg】.
+ * @Author fengtoos
  * @Date 2018/12/23 11:12
  * @DESC
- * @CONTACT 317758022@qq.com
  */
 public class KeyGeneratorController {
 

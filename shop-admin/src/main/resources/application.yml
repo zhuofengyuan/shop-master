@@ -12,6 +12,7 @@ fengtoos:
       - /oauth/
       - /file/image
       - /auth/principal
+      - /wechat
 
 spring:
   application:

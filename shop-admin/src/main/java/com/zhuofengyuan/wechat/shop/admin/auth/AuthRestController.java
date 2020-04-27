@@ -16,6 +16,7 @@ public class AuthRestController {
     @GetMapping
     public String conn(String echostr){
 //        System.out.println(echostr);
+        System.out.println(echostr);
         return echostr;
     }
 

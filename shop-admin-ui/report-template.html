@@ -50,15 +50,15 @@
                 let minute = d.getMinutes();
                 if(hour < 7){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1, 14, 30, 0);
-                } else if(hour == 7 && m < 30){
+                } else if(hour == 7 && minute < 30){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1, 14, 30, 0);
-                } else if(hour == 7 && m > 30){
+                } else if(hour == 7 && minute > 30){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
                 } else if(hour > 7 && hour < 14){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
-                } else if(hour == 14 && m < 30){
+                } else if(hour == 14 && minute < 30){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 7, 30, 0);
-                } else if(hour == 14 && m > 30){
+                } else if(hour == 14 && minute > 30){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 14, 30, 0);
                 } else if(hour > 14){
                     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 14, 30, 0);
@@ -109,6 +109,104 @@
         $report = powerbi.embed(reportContainer, config);
     }
 
+    function hge(){
+        $report.getPages().then(function (pages) {
+            // console.log(pages);
+            var activePage = pages.filter(function (page) {
+                return page.isActive
+            })[0];
+
+            activePage.getFilters()
+                .then(function (filters) {
+                    // console.log(filters);
+                })
+                .catch(function (errors) {
+                    console.log(filters);
+                });
+        })
+
+        $report.getFilters()
+            .then(function (filters) {
+                console.log(filters);
+            })
+            .catch(function (errors) {
+                console.log(errors);
+            });
+
+        const filter = {
+            $schema: "http://powerbi.com/product/schema#basic",
+            target: {
+                table: "各事业部销售任务",
+                column: "事业部名称"
+            },
+            operator: "In",
+            values: ["家居事业部"]
+        };
+        // $report.setFilters([filter]);
+
+        $report.getPages().then(function (pages) {
+            // Retrieve active page.
+            var activePage = pages.filter(function (page) {
+                return page.isActive;
+            })[0];
+
+            activePage.getVisuals().then(function (visuals) {
+                console.log("visuals")
+                console.log(visuals)
+                    // Retrieve the target visual.
+                    var slicer = visuals.filter(function (visual) {
+                        return visual.type == "slicer" && visual.name == "b22f66d389860bcb6ac4";
+                    })[0];
+
+                    // Set the slicer state which contains the slicer filters.
+                    slicer.setSlicerState({ filters: [filter] })
+                        .then(function () {
+                            console.log("Date slicer was set.");
+                        })
+                        .catch(function (errors) {
+                            console.log(errors);
+                        });
+                })
+                .catch(function (errors) {
+                    console.log(errors);
+                });
+            })
+            .catch(function (errors) {
+                console.log(errors);
+            });
+        /*$report.getPages()
+            .then(function (pages) {
+                // Retrieve active page.
+                var activePage = pages.filter(function (page) {
+                    return page.isActive;
+                })[0];
+
+                activePage.getVisuals()
+                    .then(function (visuals) {
+                        // Retrieve the target visual.
+                        var slicer = visuals.filter(function (visual) {
+                            console.log(visual)
+                            return visual.type == "slicer" && visual.name == "4d55baaa5eddde4cdf90";
+                        })[0];
+
+                        // Get the slicer state which contains the slicer filter.
+                        slicer.getSlicerState()
+                            .then(function (state) {
+                                console.log(state);
+                            })
+                            .catch(function (errors) {
+                                console.log(errors);
+                            });
+                    })
+                    .catch(function (errors) {
+                        console.log(errors);
+                    });
+            })
+            .catch(function (errors) {
+                console.log(errors);
+            });*/
+    }
+
     function refreshToken(){
         fengtoos.server({
             urlType: "AAD",
@@ -147,6 +245,17 @@
         }
     })*/
 
+    fengtoos.server({
+        type: "get",
+        urlType: "AAD",
+        url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/reports/" + reportId,
+        async: true,
+        contentType: "application/json",
+        success: function (rs) {
+
+        }
+    })
+
     function open(){
         var that = this;
         //多窗口模式，层叠置顶
@@ -171,6 +280,7 @@
                 layer.setTop(layero); //重点2
             }
         });
+        hge()
     }
 
     // Refresh the token
