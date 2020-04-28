@@ -40,7 +40,6 @@
                 return;
             }
         };
-
 		this.add_lay_tab(title,url,id);
 	    this.set_data(title,url,id);
 	    element.tabChange('xbs_tab', id);
@@ -160,7 +159,6 @@
 
 		if(typeof is_remember!="undefined")
         	return false;
-
 		layui.data('tab_list', {
 		  key: id
 		  ,value: {title:title,url:url}

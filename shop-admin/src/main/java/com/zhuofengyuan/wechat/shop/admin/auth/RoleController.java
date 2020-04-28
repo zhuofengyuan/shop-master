@@ -1,7 +1,9 @@
 package com.zhuofengyuan.wechat.shop.admin.auth;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.Role;
+import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.entity.UserRole;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.IRoleService;
@@ -55,8 +57,9 @@ public class RoleController {
         return RestResponseBo.normal(this.roleService.removeById(id));
     }
 
-    @PostMapping("/add/user")
-    public RestResponseBo addUser(@RequestBody List<UserRole> data){
+    @PostMapping("/add/user/{id}")
+    public RestResponseBo addUser(@RequestBody List<UserRole> data, @PathVariable String id){
+        this.userRoleService.remove(new QueryWrapper<UserRole>().eq("role_id", id));
         return RestResponseBo.normal(this.userRoleService.saveBatch(data));
     }
 }

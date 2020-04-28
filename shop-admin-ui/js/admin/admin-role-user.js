@@ -74,7 +74,7 @@ layui.use(['form', 'layer', 'eleTree', 'transfer'],
             }
 
             fengtoos.server({
-                url: base_path + 'role/add/user',
+                url: base_path + 'role/add/user/' + fengtoos.getQueryString("id"),
                 data: JSON.stringify(ids),
                 contentType: 'application/json',
                 success: function(resp){

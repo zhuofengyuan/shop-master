@@ -26,7 +26,7 @@ public class PbiAAdTokenService {
 
             // 重新设置AAD Token
             var obj = JSON.parseObject(aadEntity.toString());
-            this.redisTemplate.opsForValue().set("fengtoos_pbi_token", aadEntity.toString(), obj.getIntValue("expires_in"), TimeUnit.SECONDS);
+            this.redisTemplate.opsForValue().set("fengtoos_pbi_token", aadEntity.toString(), obj.getIntValue("expires_in") - 300, TimeUnit.SECONDS);
         }
         return JSON.parseObject(aadEntity.toString());
     }
