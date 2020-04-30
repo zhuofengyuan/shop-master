@@ -1,5 +1,5 @@
-var base_path = 'http://zm.zsmls.com/';
-// var base_path = 'http://localhost:8080/';
+// var base_path = 'http://zm.zsmls.com/';
+var base_path = 'http://localhost:8080/';
 // var ittun_path = 'http://fengtoos.ittun.com/';
 var image_path = base_path + 'file/image/';
 var upload_path = base_path + 'file'
@@ -102,7 +102,6 @@ function refreshToken() {
         contentType: 'application/x-www-form-urlencoded',
         success: function (sResponse) {
             saveAuth(sResponse);
-            console.log('refresh_token ok: ' + sResponse.access_token + '  expires_in:' + sResponse.expires_in);
         },
         error: function(){
             clearAuth()
@@ -136,4 +135,15 @@ function checkToken() {
             console.log(a.responseJSON);
         }
     });
+}
+
+function reflushAADToken(){
+    //重新刷新权限
+    fengtoos.server({
+        url: base_path + 'auth/principal',
+        type: 'get',
+        success: function(r){
+            saveUser(r);
+        }
+    })
 }

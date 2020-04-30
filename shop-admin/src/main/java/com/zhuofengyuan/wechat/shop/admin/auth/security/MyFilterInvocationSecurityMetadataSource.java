@@ -28,12 +28,15 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     public Collection<ConfigAttribute> getAuthByUrl(String url) {
         Object r = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(r instanceof FengtoosSecurityUser){
-            return this.authorizationService.selectByUserId(((FengtoosSecurityUser) r).getId())
+            var auths = this.authorizationService.selectByUserId(((FengtoosSecurityUser) r).getId())
                     .stream()
                     .filter(auth -> StringUtils.isNotEmpty(auth.getAuthurl()))
                     .filter(auth -> url.contains(auth.getAuthurl()))
                     .map(auth -> (ConfigAttribute) () -> auth.getCode())
                     .collect(Collectors.toList());
+            if(!auths.isEmpty()){
+                return auths;
+            }
         }
         return Arrays.asList((ConfigAttribute) () -> "EMPTY_AUTH");
 //        return null;

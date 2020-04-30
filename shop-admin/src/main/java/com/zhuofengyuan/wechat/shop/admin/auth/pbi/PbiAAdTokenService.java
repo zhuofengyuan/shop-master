@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Pbi AAD 验证服务
+ * @Date 2020年4月30日14:32:59
+ * @Author Fengtoos
+ */
 @Component
 public class PbiAAdTokenService {
 
@@ -20,14 +25,22 @@ public class PbiAAdTokenService {
 
     public JSONObject getRealAADToken(){
         /** PBI AAD Token From Redis*/
-        var aadEntity = this.redisTemplate.opsForValue().get("fengtoos_pbi_token");
+        var aadEntity = this.redisTemplate.opsForValue().get(pbiSettings.getAadTokenName());
         if(aadEntity == null){
             aadEntity = PbiUtil.doGetAzureToken(pbiSettings);
 
             // 重新设置AAD Token
             var obj = JSON.parseObject(aadEntity.toString());
-            this.redisTemplate.opsForValue().set("fengtoos_pbi_token", aadEntity.toString(), obj.getIntValue("expires_in") - 300, TimeUnit.SECONDS);
+            this.redisTemplate.opsForValue().set(pbiSettings.getAadTokenName(), aadEntity.toString(), obj.getIntValue("expires_in") - 300, TimeUnit.SECONDS);
         }
         return JSON.parseObject(aadEntity.toString());
+    }
+
+    /**
+     * 判断是否存在PBI身份Token
+     * @return
+     */
+    public boolean existsAADToken(){
+        return this.redisTemplate.hasKey(pbiSettings.getAadTokenName());
     }
 }

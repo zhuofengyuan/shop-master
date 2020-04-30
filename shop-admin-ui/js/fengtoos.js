@@ -280,15 +280,8 @@ window.fengtoos = {
                     refreshToken();
                 }else if((status == 401 || status == 403) && $.trim(params.urlType) == "AAD"){
                     //重新刷新权限
-                    fengtoos.server({
-                        url: base_path + 'auth/principal',
-                        type: 'get',
-                        success: function(r){
-                            saveUser(r);
-                        }
-                    })
+                    reflushAADToken()
                 } else {
-                    console.log(XMLHttpRequest)
                     fengtoos.msg({
                         content: XMLHttpRequest.responseJSON.message?XMLHttpRequest.responseJSON.message:XMLHttpRequest.responseJSON.error,
                         icon: 2

@@ -17,4 +17,6 @@ public class PbiSettings {
 
     /** AAD的Token访问URL*/
     private String AADToken;
+    /** AAD的Redis Token 名称 */
+    private String aadTokenName;
 }

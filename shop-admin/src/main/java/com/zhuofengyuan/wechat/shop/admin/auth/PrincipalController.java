@@ -2,6 +2,7 @@ package com.zhuofengyuan.wechat.shop.admin.auth;
 
 import com.zhuofengyuan.wechat.shop.admin.auth.pbi.PbiAAdTokenService;
 import com.zhuofengyuan.wechat.shop.admin.auth.security.FengtoosSecurityUser;
+import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,5 +25,10 @@ public class PrincipalController {
         var aadEntity = this.aAdTokenService.getRealAADToken();
         ((FengtoosSecurityUser) auth.getPrincipal()).setPbiAADToken(aadEntity.getString(ACCESS_TOKEN));
         return user;
+    }
+    
+    @GetMapping("/expire")
+    public RestResponseBo expire(){
+        return RestResponseBo.normal(this.aAdTokenService.existsAADToken());
     }
 }

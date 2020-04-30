@@ -12,6 +12,7 @@ pbi:
   password: Yzf19950420
   username: fengtoos.yuan@zsmls.cn
   client_secret: P/eeqJ:Y2.wAhcdcLgCZ?9IEb23Upm@l
+  aad_token_name: fengtoos_pbi_token
 
 
 
