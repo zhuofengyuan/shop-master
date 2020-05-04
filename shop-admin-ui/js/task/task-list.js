@@ -1,22 +1,27 @@
-layui.use(['laydate', 'table'], function () {
+layui.use(['laydate', 'table', 'layer', 'form'], function () {
     let laydate = layui.laydate, //日期
         table = layui.table, //表格
+        layer = layui.layer,
         form = layui.form,
         $ = layui.jquery; //jquery
     window.$ = $;
 
-    //执行一个laydate实例
+    //年月选择器
     laydate.render({
-        elem: '#start' //指定元素
-    });
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#end' //指定元素
+        elem: '#ym'
+        ,type: 'month'
+        ,format: 'yyyy年MM月'
+        ,theme: '#393D49'
+        ,done: function(value, date, endDate){
+            $('#year').val(date.year)
+            $('#month').val(date.month)
+        }
     });
 
     //执行一个 table 实例
     let userTable = table.render({
         elem: '#admin_table'
+        , id: 'table'
         , url: base_path + 'task/list' //数据接口
         , title: '用户表'
         , page: true //开启分页
@@ -37,7 +42,7 @@ layui.use(['laydate', 'table'], function () {
             {type: 'checkbox'}
             , {field: 'dept', title: '事业部名称'}
             , {field: 'province', title: '省份'}
-            , {field: 'yearmonth', title: '省份', templet: function(d){
+            , {field: 'yearmonth', title: '年月', templet: function(d){
                 return d.year + '年' + d.month + '月';
             }}
             , {field: 'amount', title: '金额'}
@@ -65,7 +70,7 @@ layui.use(['laydate', 'table'], function () {
                     url: base_path + 'task/' + data.id,
                     type: 'delete',
                     success: function(resp) {
-                        if(resp & resp.success){
+                        if(resp && resp.success){
                             layer.msg('删除成功', {icon: 1});
                         } else {
                             layer.msg(resp.msg, {icon: 2});
@@ -75,7 +80,13 @@ layui.use(['laydate', 'table'], function () {
                 })
             });
         } else if (layEvent === 'edit') {
-            xadmin.open('编辑任务','./task-add.html?id=' + data.id,590,560)
+            xadmin.open('编辑任务','./task-add.html?id=' + data.id,590,530)
         }
+    });
+
+    //监听提交
+    form.on('submit(search)', function(data) {
+        table.reload('table', {where: data.field})
+        return false;
     });
 });

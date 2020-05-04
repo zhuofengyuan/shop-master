@@ -1,8 +1,50 @@
-layui.use(['form', 'layer'],
-    function() {
+layui.use(['form', 'layer','code', 'laydate'], function() {
         var $ = layui.jquery,
-            form = layui.form,
+            laydate = layui.laydate,
             layer = layui.layer;
+        form = layui.form;
+
+        layui.code();
+
+        //地区
+        $('#province').xcity('广东省','中山市','小榄镇');
+
+        //渲染表单
+        if(fengtoos.getQueryString("id")){
+
+            fengtoos.server({
+                url: base_path + 'task/' + fengtoos.getQueryString("id"),
+                type: 'get',
+                success: function(data) {
+                    form.val("main-form", data.payload);
+
+                    //年月选择器
+                    laydate.render({
+                        elem: '#ym'
+                        ,type: 'month'
+                        ,format: 'yyyy年MM月'
+                        ,theme: '#393D49'
+                        ,value: data.payload.year + '年' + data.payload.month + '月'
+                        ,done: function(value, date, endDate){
+                            $('#year').val(date.year)
+                            $('#month').val(date.month)
+                        }
+                    });
+                }
+            });
+        } else {
+            //年月选择器
+            laydate.render({
+                elem: '#ym'
+                ,type: 'month'
+                ,format: 'yyyy年MM月'
+                ,theme: '#393D49'
+                ,done: function(value, date, endDate){
+                    $('#year').val(date.year)
+                    $('#month').val(date.month)
+                }
+            });
+        }
 
         //自定义验证规则
         form.verify({
@@ -13,21 +55,13 @@ layui.use(['form', 'layer'],
             }
         });
 
-        //渲染表单
-        fengtoos.server({
-            url: base_path + 'task/' + fengtoos.getQueryString("id"),
-            type: 'get',
-            success: function(data) {
-                form.val("main-form", data.payload);
-            }
-        });
-
         //监听提交
         form.on('submit(add)', function(data) {
-            delete data.field["eleTree-node"];
-
+            var params = data.field;
+            delete params['city'];
+            delete params['area'];
             fengtoos.server({
-                url: base_path + 'role/add',
+                url: base_path + 'task/add',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',
                 success: function(resp){

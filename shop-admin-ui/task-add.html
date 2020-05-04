@@ -40,27 +40,70 @@
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form" lay-filter="main-form">
-                  <div class="layui-form-item">
-                      <label for="name" class="layui-form-label">
-                          <span class="x-red">*</span>名称
+                  <div class="layui-form-item x-city">
+                      <label for="dept" class="layui-form-label">
+                          <span class="x-red">*</span>事业部名称
                       </label>
                       <div class="layui-input-inline" style="width: 300px;">
-                          <input type="text" id="name" name="name" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
+                          <select name="dept" lay-verify="required">
+                              <option value="流通事业部">流通事业部</option>
+                              <option value="家居事业部">家居事业部</option>
+                              <option value="商照事业部">商照事业部</option>
+                              <option value="海外事业部">海外事业部</option>
+                              <option value="大客户部">大客户部</option>
+                          </select>
                           <input type="hidden" name="id">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>
                       </div>
                   </div>
-                  <div class="layui-form-item">
-                      <label for="description" class="layui-form-label">
-                          <span class="x-red">*</span>备注
-                      </label>
-                      <div class="layui-input-inline" style="width: 300px;">
-                          <textarea name="description" id="description" placeholder="请输入内容" class="layui-textarea"></textarea>
-                      </div>
-                  </div>
+                    <div class="layui-form-item"  id="province">
+                        <label for="province" class="layui-form-label">
+                            <span class="x-red">*</span>省份
+                        </label>
+                        <div class="layui-input-inline" style="width: 100px;">
+                            <select name="province" lay-filter="province">
+                                <option value="">请选择省</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline" style="width: 100px">
+                            <select name="city" lay-filter="city" >
+                                <option value="">请选择市</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline" style="width: 100px">
+                            <select name="area" lay-filter="area" >
+                                <option value="">请选择县/区</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="ym" class="layui-form-label">
+                            <span class="x-red">*</span>年份
+                        </label>
+                        <div class="layui-input-inline" style="width: 300px;">
+                            <input type="text" id="ym" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input" readonly>
+                            <input type="hidden" name="year" id="year">
+                            <input type="hidden" name="month" id="month">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="amount" class="layui-form-label">
+                            <span class="x-red">*</span>任务金额
+                        </label>
+                        <div class="layui-input-inline" style="width: 300px;">
+                            <input type="text" id="amount" name="amount" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>
+                        </div>
+                    </div>
                   <div class="layui-form-item">
                       <label for="" class="layui-form-label"></label>
                       <button  class="layui-btn" lay-filter="add" lay-submit="">
@@ -70,7 +113,9 @@
               </form>
             </div>
         </div>
+        <script type="text/javascript" src="./js/xcity.js"></script>
         <script type="text/javascript" src="./js/task/task-add.js"></script>
+
     </body>
 
 </html>

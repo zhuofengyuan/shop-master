@@ -1,6 +1,9 @@
 package com.zhuofengyuan.wechat.shop.admin.task;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhuofengyuan.wechat.shop.entity.ProvinceTask;
 import com.zhuofengyuan.wechat.shop.entity.User;
@@ -29,23 +32,25 @@ public class ProvinceTaskController {
 
     @GetMapping("/list")
     public RestResponseBo list(@RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
-                               @RequestParam(name = "limit", defaultValue = "10") Integer pageSize){
+                               @RequestParam(name = "limit", defaultValue = "10") Integer pageSize,
+                               ProvinceTask params){
         Page<ProvinceTask> page = new Page<>(pageNumber, pageSize);
-        return RestResponseBo.ok(this.provinceTaskService.page(page), 0);
+        return RestResponseBo.ok(this.provinceTaskService.page(page, new QueryWrapper<ProvinceTask>().allEq(
+                JSONObject.parseObject(JSON.toJSONString(params)))), 0);
     }
 
     @PostMapping("/add")
     public RestResponseBo add(@RequestBody ProvinceTask entity){
-        return RestResponseBo.normal(this.provinceTaskService.save(entity));
-    }
-
-    @PostMapping("/update")
-    public RestResponseBo update(@RequestBody ProvinceTask entity){
-        return RestResponseBo.normal(this.provinceTaskService.updateById(entity));
+        return RestResponseBo.normal(this.provinceTaskService.saveOrUpdate(entity));
     }
 
     @DeleteMapping("/{id}")
     public RestResponseBo delete(@PathVariable String id){
         return RestResponseBo.normal(this.provinceTaskService.removeById(id));
+    }
+
+    @GetMapping("/{id}")
+    public RestResponseBo findOne(@PathVariable String id){
+        return RestResponseBo.ok(this.provinceTaskService.getById(id));
     }
 }

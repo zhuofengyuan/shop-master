@@ -32,25 +32,31 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
+                    <form class="layui-form layui-col-space5" lay-filter="main-form">
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                            <select name="dept">
+                                <option value="">所有</option>
+                                <option value="流通事业部">流通事业部</option>
+                                <option value="家居事业部">家居事业部</option>
+                                <option value="商照事业部">商照事业部</option>
+                                <option value="海外事业部">海外事业部</option>
+                                <option value="大客户部">大客户部</option>
+                            </select>
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                            <input class="layui-input"  autocomplete="off" placeholder="年月" id="ym">
+                            <input type="hidden" name="year" id="year">
+                            <input type="hidden" name="month" id="month">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                            <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
                         </div>
                     </form>
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','./admin-role-add.html',590,560)"><i class="layui-icon"></i>添加</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','./admin-role-add.html',590,560)"><i class="layui-icon"></i>导入</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加用户','./task-add.html',590,530)"><i class="layui-icon"></i>添加</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加用户','./task-add.html',590,530)"><i class="layui-icon"></i>导入</button>
                 </div>
                 <div class="layui-card-body ">
                     <div style="height: 100%">
