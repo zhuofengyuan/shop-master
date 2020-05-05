@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhuofengyuan.wechat.shop.annotation.SystemLog;
 import com.zhuofengyuan.wechat.shop.entity.ProvinceTask;
 import com.zhuofengyuan.wechat.shop.entity.User;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
@@ -30,6 +31,7 @@ public class ProvinceTaskController {
     @Autowired
     IProvinceTaskService provinceTaskService;
 
+    @SystemLog
     @GetMapping("/list")
     public RestResponseBo list(@RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
                                @RequestParam(name = "limit", defaultValue = "10") Integer pageSize,

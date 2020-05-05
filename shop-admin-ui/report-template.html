@@ -70,6 +70,14 @@
             });
         };
         setCountdown(2099,1,1);
+        fengtoos.server({
+            url: base_path + 'log/add',
+            data: JSON.stringify({type: 1, method: 'report', params: $(parent.document).find('.layui-this').text() + '|' + window.location.href}),
+            contentType: 'application/json',
+            success: function(resp){
+
+            }
+        })
     })
 
     var $report;
@@ -128,72 +136,6 @@
 
     }
 
-    function hge(){
-        $report.getPages().then(function (pages) {
-            var activePage = pages.filter(function (page) {
-                return page.isActive
-            })[0];
-
-            activePage.getFilters()
-                .then(function (filters) {
-
-                })
-                .catch(function (errors) {
-                    console.log(filters);
-                });
-        })
-
-        $report.getFilters()
-            .then(function (filters) {
-                console.log(filters);
-            })
-            .catch(function (errors) {
-                console.log(errors);
-            });
-
-        const filter = {
-            $schema: "http://powerbi.com/product/schema#basic",
-            target: {
-                table: "各事业部销售任务",
-                column: "事业部名称"
-            },
-            operator: "In",
-            values: ["家居事业部"]
-        };
-        // $report.setFilters([filter]);
-
-        $report.getPages().then(function (pages) {
-            // Retrieve active page.
-            var activePage = pages.filter(function (page) {
-                return page.isActive;
-            })[0];
-
-            activePage.getVisuals().then(function (visuals) {
-                console.log("visuals")
-                console.log(visuals)
-                    // Retrieve the target visual.
-                    var slicer = visuals.filter(function (visual) {
-                        return visual.type == "slicer" && visual.name == "b22f66d389860bcb6ac4";
-                    })[0];
-
-                    // Set the slicer state which contains the slicer filters.
-                    slicer.setSlicerState({ filters: [filter] })
-                        .then(function () {
-                            console.log("Date slicer was set.");
-                        })
-                        .catch(function (errors) {
-                            console.log(errors);
-                        });
-                })
-                .catch(function (errors) {
-                    console.log(errors);
-                });
-            })
-            .catch(function (errors) {
-                console.log(errors);
-            });
-    }
-
     var $reportId = fengtoos.getQueryString("report");
     function refreshEmbedToken(){
         fengtoos.server({
@@ -221,27 +163,6 @@
             loadReport(token, $reportId, "https://app.powerbi.com/reportEmbed?reportId=" + $reportId)
         }
     })
-
-    /*fengtoos.server({
-        urlType: "AAD",
-        // url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/datasets/c79b5056-8928-4cfc-a32d-878f8bfc1b70/refreshes",
-        url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/datasets/c79b5056-8928-4cfc-a32d-878f8bfc1b70/Default.DiscoverGateways",
-        async: true,
-        success: function (rs) {
-            console.log(rs);
-        }
-    })*/
-
-    /*fengtoos.server({
-        type: "get",
-        urlType: "AAD",
-        url: "https://api.powerbi.com/v1.0/myorg/groups/3828d97d-072c-4605-995f-37f9abc5d177/reports/" + $reportId,
-        async: true,
-        contentType: "application/json",
-        success: function (rs) {
-
-        }
-    })*/
 
     function open(){
         var that = this;

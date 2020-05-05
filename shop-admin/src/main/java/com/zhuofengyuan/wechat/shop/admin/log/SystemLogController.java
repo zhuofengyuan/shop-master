@@ -2,11 +2,15 @@ package com.zhuofengyuan.wechat.shop.admin.log;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhuofengyuan.wechat.shop.admin.auth.security.FengtoosSecurityUser;
 import com.zhuofengyuan.wechat.shop.entity.SystemLog;
 import com.zhuofengyuan.wechat.shop.resp.RestResponseBo;
 import com.zhuofengyuan.wechat.shop.service.ISystemLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -32,6 +36,10 @@ public class SystemLogController {
 
     @PostMapping("/add")
     public RestResponseBo add(@RequestBody SystemLog entity){
+        var currentUser = (FengtoosSecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        entity.setUser(currentUser==null?null:currentUser.getId());
+        entity.setUserName(currentUser==null?null:currentUser.getUsername());
+        entity.setOperationDate(LocalDateTime.now());
         return RestResponseBo.normal(this.systemLogService.save(entity));
     }
 }

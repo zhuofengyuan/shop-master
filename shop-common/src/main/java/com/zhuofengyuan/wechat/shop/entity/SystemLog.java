@@ -2,8 +2,14 @@ package com.zhuofengyuan.wechat.shop.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,14 +23,19 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@NoArgsConstructor
+@TableName("system_log")
 public class SystemLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(type = IdType.NONE)
+    private String id;
+
     private String method;
 
     private String params;
-
+    /** 1.为报表类型，2为接口类型 */
     private Integer type;
 
     private String user;

@@ -1,7 +1,7 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://${fengtoos.prodaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      url: jdbc:mysql://${fengtoos.prodaddress}:3306/wechat_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
       username: root
       password: Mls2020*
       initial-size: 5

@@ -7,12 +7,11 @@ wechat:
 
 pbi:
   resource: https://analysis.windows.net/powerbi/api
-  client_id: c3b1069c-50b9-4bf8-b52e-201a843eeea2
-  grant_type: password
-  password: Yzf19950420
-  username: fengtoos.yuan@zsmls.cn
-  client_secret: P/eeqJ:Y2.wAhcdcLgCZ?9IEb23Upm@l
+  client_id: 123
+  grant_type: 123
+  password: 123
+  username: 123
+  client_secret:
   aad_token_name: fengtoos_pbi_token
-
 
 
