@@ -23,47 +23,6 @@
           <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script>
-
-            let xhr = new XMLHttpRequest();
-            // 请求成功回调函数
-            xhr.onload = e => {
-                console.log('request success');
-            };
-            // 请求结束
-            xhr.onloadend = e => {
-                console.log(e);
-            };
-            // 请求出错
-            xhr.onerror = e => {
-                console.log(e);
-            };
-            // 请求超时
-            xhr.ontimeout = e => {
-                console.log('request timeout');
-            };
-            // 请求回调函数.XMLHttpRequest标准又分为Level 1和Level 2,这是Level 1和的回调处理方式
-            // xhr.onreadystatechange = () => {
-            //  if (xhr.readyState !== 4) {
-            //  return;
-            //  }
-            //  const status = xhr.status;
-            //  if ((status >= 200 && status < 300) || status === 304) {
-            //  console.log('request success');
-            //  } else {
-            //  console.log('request error');
-            //  }
-            //  };
-
-            xhr.timeout = 0; // 设置超时时间,0表示永不超时
-            // 初始化请求
-            xhr.open('POST', 'http://mlsoa.zsmls.com/logincheck.php?UNAME=1000779&PASSWORD=YS4xMjM0NTY=&encode_type=1', true);
-            // 设置期望的返回数据类型 'json' 'text' 'document' ...
-            xhr.responseType = '';
-            // 设置请求头
-            // xhr.setRequestHeader('Cookie', 'OA_USER_ID=8496; PHPSESSID=bodqe1lv4su55f7qppc7e71740; SID_8496=266d6bba');
-            // 发送请求
-            xhr.send(null);
-
             // 是否开启刷新记忆tab功能
             // var is_remember = true;
             layui.use(['form', 'layer'], function () {
