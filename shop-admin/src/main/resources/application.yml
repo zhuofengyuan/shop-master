@@ -13,6 +13,8 @@ fengtoos:
       - /file/image
       - /auth/principal
       - /wechat
+      - /mail
+      - /auth/menu
 
 spring:
   application:
@@ -23,6 +25,20 @@ spring:
   jackson:
     generator:
       write_numbers_as_strings: true
+  mail:
+    host: smtp.zsmls.com
+    port: 587
+    username: zhuofengyuan@zsmls.com
+    password: Yzf19950420
+    #test-connection: true #测试连接
+    properties:
+      mail:
+        smtp:
+          auth: true
+          enable: true
+          timeout: 3000
+        ssl:
+          enable: true
 
 mybatis-plus:
   mapperLocations: classpath*:mappers/*Mapper.xml

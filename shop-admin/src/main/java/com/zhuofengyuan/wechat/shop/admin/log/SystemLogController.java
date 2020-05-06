@@ -38,7 +38,7 @@ public class SystemLogController {
     public RestResponseBo add(@RequestBody SystemLog entity){
         var currentUser = (FengtoosSecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         entity.setUser(currentUser==null?null:currentUser.getId());
-        entity.setUserName(currentUser==null?null:currentUser.getUsername());
+        entity.setUserName(currentUser==null?null:currentUser.getNickName());
         entity.setOperationDate(LocalDateTime.now());
         return RestResponseBo.normal(this.systemLogService.save(entity));
     }

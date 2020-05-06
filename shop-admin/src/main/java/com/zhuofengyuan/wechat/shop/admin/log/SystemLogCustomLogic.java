@@ -27,7 +27,7 @@ public class SystemLogCustomLogic implements ISystemLogCustomLogic {
         entity.setOperationDate(LocalDateTime.now());
         entity.setType(2);
         entity.setUser(currentUser==null?null:currentUser.getId());
-        entity.setUserName(currentUser==null?null:currentUser.getUsername());
+        entity.setUserName(currentUser==null?null:currentUser.getNickName());
         entity.setParams(String.format("%s|%s", params.get("paramName"), params.get("paramVal")));
         entity.setDescription(params.get("desc").toString());
         this.systemService.save(entity);
